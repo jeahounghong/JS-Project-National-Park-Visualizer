@@ -1,0 +1,13 @@
+.parks_sidebar {
+    // position: absolute;
+    margin-top: 100px;
+    // background-color: red;
+    padding-left: 40px;
+    width: 700px;
+
+    .scrollable_parks_ul {
+        height: 200px;
+        overflow-y: scroll;
+        border: solid 1px black;
+    }
+}

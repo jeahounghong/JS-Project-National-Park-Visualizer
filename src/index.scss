@@ -1,7 +1,5 @@
-@import "./styles/style.scss";
+@import "./styles/reset.css";
+@import "./styles/map.scss";
 @import "./styles/header.scss";
+@import "./styles/parks_sidebar.scss";
 
-
-h1 {
-    color: red;
-}

@@ -11,12 +11,25 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(res => res.json())
         .then(res => parks = res.data)
         .then(populateMap)
+        .then(populateAllParks)
         // .then(() => parks = data.data)
         // .then(() => console.log(parks))
 })
 
 function populateMap(){
     US_MAP.generateMap(parks);
-    console.log(parks)
-    console.log(Object.keys(parks));
+    // console.log(parks)
+    // console.log(Object.keys(parks));
+}
+
+function populateAllParks(){
+    // Some national parks are not rendered because they do not appear on the geoAlbers projection. It should be decided whether or not these should have a parks page
+    let parks_list = document.getElementById("parks_ul");
+    for(let i = 0; i < parks.length; i++){
+        const node = document.createElement("li");
+        node.innerText = `${parks[i].fullName}, ${parks[i].states}`;
+        parks_list.appendChild(node);
+    }
+    // console.log(parks.length)
+
 }

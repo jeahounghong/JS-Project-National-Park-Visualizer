@@ -4,7 +4,11 @@ export function generateMap(parks){
         top: 10,
         bottom: 10,
         left: 10,
-        right:10
+        right: 10,
+        // top: 500,
+        // bottom: 500,
+        // left: 500,
+        // right: 500
     }, width = parseInt(d3.select('.viz').style('width'))
         , width = width - margin.left - margin.right
         , mapRatio = 0.5

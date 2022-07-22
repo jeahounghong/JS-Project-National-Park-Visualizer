@@ -1,7 +1,9 @@
 .top_header {
 
+    // opacity: 10%;
     position: fixed;
     width: 100%;
+    z-index:1041;
 
     display: flex;
     flex-direction: row;
@@ -22,18 +24,14 @@
         a {
             text-decoration: none;
             color: #fff4cf;
-        }
+        } 
     }
 
     .search_questions {
         display: flex;
         flex-direction: row;
         align-items: center;
-
-        width: 300px;
-        background-color: red;
-        
-        * {
+        > button, form {
             margin-right: 30px;
         }
 
@@ -45,7 +43,6 @@
         flex-direction: row;
         // justify-content: space-between;
         // padding-left: 20px;
-        background-color: Red;
         width: 300px;
         a {
             color: #fff4cf;

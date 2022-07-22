@@ -1,3 +1,11 @@
+body {
+    // position: absolute;
+    margin:0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .background {
     fill: none;
     pointer-events: all;
@@ -31,8 +39,14 @@
 }
 
 .viz {
+    // position: absolute;
     border: solid 1px black;
     fill: none;
+    width: 960px;
+    // margin-left: 40px;
+    // padding-top: 100px;
+    margin-top: 100px;
+    // background-color: red;
 }
 
 .parks {
