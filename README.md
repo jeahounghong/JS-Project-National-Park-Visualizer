@@ -2,6 +2,9 @@
 
 ## Background
 
+I decided to create a national park visualizer in the hopes of creating a tool that someone like myself could see using. I visited my first national park in the summer of 2020 and found national parks to be a great contrast to the NYC environment I was raised in. The national parks are definitely national treasures and I wanted to create a single page app that could house all of the pertinent info and snapshots. The goal was to create an application where one can click around, see what different parks have to offer, and even filter for specific activities each park offers.
+
+Luckily, the National Parks Service API proved to be an amazing resource with pretty much all of the relevant information I could want. I decided to combine it with D3 geo for map visualization as well as the AllTrails API and Flickr API for peripheral information.
 
 ## Functionality & MVPs
 In the National Park visualizer, users will be able to:
