@@ -35,5 +35,5 @@ In addition, this project will include:
 - 07/22/22 - Create basic HTML skeleton of relevant banners, forms, search bars, etc. Create functionality for AJAX requests for searching by keywords on specific parks. This should also apply to the native filters that are embedded within the SPA.
 - 07/24/22 - Create functionality to open a popup upon clicking on a park. "X"ing out of the park should unselect park, re-render the filters and parks in that state. Potentially implement lightweight backend to hide API keys, allow for CORS proxy.
 - 07/25/22 - Create functionality to populate the popup upon request. It should draw images from the Flickr API, fetch reviews from AllTrails API, create descriptions and list of activities from Parks API
--07/26/22 - Troubleshooting, refactoring, and CSS Styling
--07/27/22 - Troubleshooting, refactoring, and CSS Styling. Finalize presentation.
+- 07/26/22 - Troubleshooting, refactoring, and CSS Styling
+- 07/27/22 - Troubleshooting, refactoring, and CSS Styling. Finalize presentation.
