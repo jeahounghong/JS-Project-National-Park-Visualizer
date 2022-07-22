@@ -98,9 +98,6 @@ export function generateMap(parks){
                 }
             })
 
-        
-
-
     }
 
     function clicked(d) {

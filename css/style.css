@@ -32,7 +32,7 @@
 
 .viz {
     border: solid 1px black;
-    background-color: #ffe098;
+    fill: none;
 }
 
 .parks {
