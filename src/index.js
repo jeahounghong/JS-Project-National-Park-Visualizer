@@ -1,5 +1,5 @@
 // const ParksAPI = require('./parksAPI');
- const US_MAP = require('./us_map')
+ const US_MAP = require('./scripts/us_map')
 // let api_data = ParksAPI.data();
 
 
