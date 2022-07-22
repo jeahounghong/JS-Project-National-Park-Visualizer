@@ -1,0 +1,56 @@
+.top_header {
+
+    position: fixed;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #377040;
+    margin: none;
+    height: 60px;
+
+    .main_title {
+        color: #fff4cf;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        font-family: "NPS Rawlinson";
+        font-size: 20px;
+        a {
+            text-decoration: none;
+            color: #fff4cf;
+        }
+    }
+
+    .search_questions {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        width: 300px;
+        background-color: red;
+        
+        * {
+            margin-right: 30px;
+        }
+
+    }
+
+    .personal_links{
+        // background-color: yellow;
+        display: flex;
+        flex-direction: row;
+        // justify-content: space-between;
+        // padding-left: 20px;
+        background-color: Red;
+        width: 300px;
+        a {
+            color: #fff4cf;
+            text-decoration: none;
+            padding-left: 30px;
+        }
+    }
+}
