@@ -10,4 +10,14 @@
         overflow-y: scroll;
         border: solid 1px black;
     }
+
+    .filterBox{
+        border: solid 1px black;
+        #activities {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            height: 60px;
+        }
+    }
 }

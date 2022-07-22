@@ -162,3 +162,12 @@ body {
   overflow-y: scroll;
   border: solid 1px black;
 }
+.parks_sidebar .filterBox {
+  border: solid 1px black;
+}
+.parks_sidebar .filterBox #activities {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 60px;
+}
