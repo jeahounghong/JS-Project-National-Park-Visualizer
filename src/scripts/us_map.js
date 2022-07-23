@@ -1,10 +1,13 @@
 // document.addEventListener("DOMContentLoaded", () => {
 export function generateMap(parks){
 
+    let currentState = "United States of America"
+
     document.addEventListener('submit', (event)=>{
         event.preventDefault();
         let state = document.getElementById("state_select").value;
         let statePath = document.getElementById(state);
+        removeElementsByClass("parks");
         zoomToState(state);
     })
 
@@ -53,9 +56,6 @@ export function generateMap(parks){
         .translate([width /2 , height / 2])
         .scale(width);
 
-    // console.log(projection)
-    // console.log(`Projection: ${projection([145.7231096, 15.21680033])}`)
-
     var path = d3.geoPath()
         .projection(projection);
 
@@ -64,6 +64,12 @@ export function generateMap(parks){
         .attr('transform', 'translate('+margin.left+','+margin.top+')')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
+
+    
+    let header = d3.select('.viz').append('div').attr('class','location-viewer')
+        .append('div')
+        .attr('class','location')
+        .html(`You are currently viewing: ${currentState}`)
 
     function ready(us) {
 
@@ -84,10 +90,10 @@ export function generateMap(parks){
             .attr("d", path)
             .attr("class", "state")
             .attr("id", (d)=>{
-                console.log(d);
+                // console.log(d);
                 if (idToStates[d.id]){
-                    console.log(d.id);
-                    console.log(idToStates[d.id])
+                    // console.log(d.id);
+                    // console.log(idToStates[d.id])
                     states_features.push(d)
                     return idToStates[d.id];
                 } else {
@@ -132,7 +138,9 @@ export function generateMap(parks){
     }
 
     function clicked(d) {
-        console.log(d)
+        // console.log(d)
+        currentState = idToStates[d.id]
+        d3.select('.location').html(`You are currently viewing: ${currentState}`)
 
         if (d3.select('.background').node() === this) return reset();
 
@@ -156,16 +164,26 @@ export function generateMap(parks){
     }
 
     function zoomToState(state){
-        console.log(state)
+        // console.log(state)
         for(let i =1; i < 60; i++){
             if (idToStates[i] === state){
-                console.log(i)
+                // console.log(i)
                 clicked(states_features[i-1])
             }
         }
     }
 
+    function removeElementsByClass(className){
+        const elements = document.getElementsByClassName(className);
+        console.log(elements)
+        while(elements.length > 0){
+            elements[0].parentNode.removeChild(elements[0]);
+        }
+    }
+
     function reset() {
+        currentState = "United States of America"
+        d3.select('.location').html(`You are currently viewing: ${currentState}`)
         active.classed("active", false);
         active = d3.select(null);
 

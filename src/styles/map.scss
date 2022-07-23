@@ -11,6 +11,7 @@ body {
 
 }
 
+
 .background {
     // fill: black;
     // opacity: 40%;
@@ -46,7 +47,6 @@ body {
 }
 
 .viz {
-    // position: absolute;
     border: solid 1px black;
     fill: none;
     width: 1000px;
@@ -56,6 +56,26 @@ body {
     // padding-top: 100px;
     margin-top: 100px;
     // background-color: red;
+    border-radius: 15px;
+}
+
+.location-viewer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #377040;
+    border-radius: 15px;
+    .location{
+        // position: relative;
+        // margin-top: 550px;
+        // z-index: 10000;
+        font-family: "Rockwell";
+        color: #fff4cf;
+        font-size: 30px;
+        padding: 10px;
+        vertical-align: center;
+    }
 }
 
 .parks {

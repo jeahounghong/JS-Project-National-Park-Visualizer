@@ -100,6 +100,23 @@ body {
   fill: none;
   width: 1000px;
   margin-top: 100px;
+  border-radius: 15px;
+}
+
+.location-viewer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #377040;
+  border-radius: 15px;
+}
+.location-viewer .location {
+  font-family: "Rockwell";
+  color: #fff4cf;
+  font-size: 30px;
+  padding: 10px;
+  vertical-align: center;
 }
 
 .parks {
@@ -166,7 +183,7 @@ body {
 
 .parks_sidebar {
   margin-top: 100px;
-  padding-left: 40px;
+  padding-left: 20px;
   width: 500px;
 }
 .parks_sidebar .scrollable_parks_ul {
