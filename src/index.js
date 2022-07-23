@@ -16,11 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(res => parks = res.data)
         .then(populateMap)
         .then(populateAllParks)
-    
-    document.addEventListener('submit', (event)=>{
-        event.preventDefault();
-        console.log('Submitted!')
-    })
 })
 
 function populateMap(){

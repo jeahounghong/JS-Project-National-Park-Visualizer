@@ -1,6 +1,15 @@
 // document.addEventListener("DOMContentLoaded", () => {
 export function generateMap(parks){
 
+    document.addEventListener('submit', (event)=>{
+        event.preventDefault();
+        let state = document.getElementById("state_select").value;
+        let statePath = document.getElementById(state);
+        zoomToState(state);
+    })
+
+    let states_features = [];
+
     const idToStates = {
         1: "AL", 2: "AK", 3: "AR", 4: "AZ", 5: "AR", 6: "CA", 7: "CT", 8: "CO", 9: "CT", 10: "DE",
         11: "GA", 12: "FL", 13: "GA", 14: "IL", 15: "HI", 16: "ID", 17: "IL", 18: "IN", 19: "IA",
@@ -11,17 +20,17 @@ export function generateMap(parks){
     }
 
     var margin = {
-        top: 10,
-        bottom: 10,
-        left: 10,
-        right: 10,
-        // top: 500,
-        // bottom: 500,
-        // left: 500,
-        // right: 500
+        // top: 10,
+        // bottom: 10,
+        // left: 10,
+        // right: 10,
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
     }, width = parseInt(d3.select('.viz').style('width'))
         , width = width - margin.left - margin.right
-        , mapRatio = 0.5
+        , mapRatio = 0.5 // previously 0.5
         , height = width * mapRatio
         , active = d3.select(null);
 
@@ -75,8 +84,11 @@ export function generateMap(parks){
             .attr("d", path)
             .attr("class", "state")
             .attr("id", (d)=>{
-                // console.log(d);
+                console.log(d);
                 if (idToStates[d.id]){
+                    console.log(d.id);
+                    console.log(idToStates[d.id])
+                    states_features.push(d)
                     return idToStates[d.id];
                 } else {
                     return `${d.id}`
@@ -90,7 +102,7 @@ export function generateMap(parks){
             .attr("d", path);
         
         g.append("g")
-            .attr("id","parks")
+            // .attr("id","parks")
             .selectAll("path")
             .data(parks)
             .enter().append("circle")
@@ -117,7 +129,6 @@ export function generateMap(parks){
                     return null;
                 }
             })
-
     }
 
     function clicked(d) {
@@ -144,6 +155,15 @@ export function generateMap(parks){
             .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
     }
 
+    function zoomToState(state){
+        console.log(state)
+        for(let i =1; i < 60; i++){
+            if (idToStates[i] === state){
+                console.log(i)
+                clicked(states_features[i-1])
+            }
+        }
+    }
 
     function reset() {
         active.classed("active", false);
