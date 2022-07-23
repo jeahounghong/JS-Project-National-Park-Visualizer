@@ -8,21 +8,27 @@
         <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"></script>
         <script type="text/javascript" src="https://d3js.org/topojson.v3.min.js"></script>
-
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://kit.fontawesome.com/5a3260456f.js" crossorigin="anonymous"></script>
         <script src="dist/main.js"></script>
-        <!-- <script src="us_map.js"></script> -->
     </head>
 
     <header class="top_header">
         <div class="personal_links">
             <a href="https://github.com/jeahounghong/JS-Project-National-Park-Visualizer">Github</a>
             <a href="https://www.linkedin.com/in/david-jeahoung-hong-7ab00b134/">LinkedIn</a>
+            
         </div>
         <div class="main_title">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
             <a href="https://jeahounghong.github.io/JS-Project-National-Park-Visualizer/">National Park Visualizer</a>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
         </div>
         <div class="search_questions">
             <form action="">
@@ -54,32 +60,53 @@
         </div>
     </header>
 
-    <body>
+    <body id="body">
         <!-- <h1>National Park Visualizer</h1> -->
         <div class="viz"></div>
         <div class="parks_sidebar">
             <div class="filterBox">
-                <p>Filter:</p>
-                <form action="">
-                    <p>Activities:</p>
-                    <label id="activities">
-                        <label> 
-                            <input type="checkbox"> Hiking
+                
+                <form id="filterForm"action="">
+                    <p>Filter:</p>
+                    <label>Activities:
+                        <label id="activities">
+                            <label> 
+                                <input type="checkbox"> Hiking <i class="fa-solid fa-person-hiking"></i>
+                            </label>
+                            <label>
+                                <input type="checkbox"> Fishing <i class="fa-solid fa-fish"></i>
+                            </label>
+                            <label>
+                                <input type="checkbox"> Stargazing <i class="fa-solid fa-star-and-crescent"></i>
+                            </label>
+                            <label>
+                                <input type="checkbox"> Hunting <i class="fa-solid fa-utensils"></i>
+                            </label>
+                            <label>
+                                <input type="checkbox"> Swimming <i class="fa-solid fa-person-swimming"></i>
+                            </label>
+                            <label>
+                                <input type="checkbox"> Picnic <i class="fa-solid fa-burger"></i>
+                            </label>
+                        </label>
+                    </label>
+
+                    <label>Hours: 
+                        <select name="cars" id="cars">
+                            <option value="any">Any hours</option>
+                            <option value="9:00am - 5:00pm">9:00am - 5:00pm</option>
+                            <option value="8:00am - 6:00pm">8:00am - 6:00pm</option>
+                            <option value="All Day">All Day</option>
+                            <option value="Sunrise to Sunset">Sunrise to Sunset</option>
+                        </select>
+                    </label>
+
+                    <label>Fee:
+                        <label>
+                            <input type="radio" name="fee" value="has_fee">Has fee
                         </label>
                         <label>
-                            <input type="checkbox"> Fishing
-                        </label>
-                        <label>
-                            <input type="checkbox"> Stargazing
-                        </label>
-                        <label>
-                            <input type="checkbox"> Hunting
-                        </label>
-                        <label>
-                            <input type="checkbox"> Swimming
-                        </label>
-                        <label>
-                            <input type="checkbox"> Picnic
+                            <input type="radio" name="fee" value="no_fee">No fee
                         </label>
                     </label>
 

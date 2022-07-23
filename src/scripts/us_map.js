@@ -1,5 +1,15 @@
 // document.addEventListener("DOMContentLoaded", () => {
 export function generateMap(parks){
+
+    const idToStates = {
+        1: "AL", 2: "AK", 3: "AR", 4: "AZ", 5: "AR", 6: "CA", 7: "CT", 8: "CO", 9: "CT", 10: "DE",
+        11: "GA", 12: "FL", 13: "GA", 14: "IL", 15: "HI", 16: "ID", 17: "IL", 18: "IN", 19: "IA",
+        20: "KS", 21: "MD", 22: "LA", 23: "ME", 24: "MD", 25: "MA", 26: "MI", 27: "MN", 28: "NE",
+        29: "MO", 30: "MT", 31: "NE", 32: "NV", 33: "NH", 34: "NJ", 35: "NM", 36: "NY", 37: "NC",
+        38: "ND", 39: "OH", 40: "OK", 41: "OR", 42: "PA", 43: "TN", 44: "RI", 45: "SC", 46: "SD",
+        47: "TN", 48: "TX", 49: "WV", 50: "VT", 51: "VA", 53: "WA", 54: "WV", 55: "WI"   
+    }
+
     var margin = {
         top: 10,
         bottom: 10,
@@ -35,7 +45,7 @@ export function generateMap(parks){
         .scale(width);
 
     // console.log(projection)
-    console.log(`Projection: ${projection([145.7231096, 15.21680033])}`)
+    // console.log(`Projection: ${projection([145.7231096, 15.21680033])}`)
 
     var path = d3.geoPath()
         .projection(projection);
@@ -64,6 +74,14 @@ export function generateMap(parks){
             .enter().append("path")
             .attr("d", path)
             .attr("class", "state")
+            .attr("id", (d)=>{
+                // console.log(d);
+                if (idToStates[d.id]){
+                    return idToStates[d.id];
+                } else {
+                    return `${d.id}`
+                }
+            })
             .on("click", clicked);
 
         g.append("path")
@@ -83,7 +101,7 @@ export function generateMap(parks){
             // .attr("id", d.id)
             .attr("r", 2)
             .attr("cx", function(d){
-                console.log(d.id)
+                // console.log(d.id)
                 let coords = projection([parseFloat(d.longitude),parseFloat(d.latitude)])
                 if (coords){
                     return coords[0];
@@ -103,6 +121,8 @@ export function generateMap(parks){
     }
 
     function clicked(d) {
+        console.log(d)
+
         if (d3.select('.background').node() === this) return reset();
 
         if (active.node() === this) return reset();

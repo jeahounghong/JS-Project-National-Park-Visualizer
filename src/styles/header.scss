@@ -5,6 +5,10 @@
     width: 100%;
     z-index:1041;
 
+    font-family: "rockwell";
+    // font-family: 'Bungee';
+
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -19,12 +23,16 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        font-family: "NPS Rawlinson";
         font-size: 20px;
         a {
+            padding-top: 17px;
             text-decoration: none;
             color: #fff4cf;
+            font-size: 25px;
         } 
+        * {
+            padding: 10px;
+        }
     }
 
     .search_questions {
@@ -49,5 +57,8 @@
             text-decoration: none;
             padding-left: 30px;
         }
+    }
+    img {
+        height: 40px;
     }
 }

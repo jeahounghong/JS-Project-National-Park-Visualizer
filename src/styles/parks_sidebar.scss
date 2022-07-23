@@ -3,15 +3,17 @@
     margin-top: 100px;
     // background-color: red;
     padding-left: 40px;
-    width: 700px;
+    width: 500px;
 
     .scrollable_parks_ul {
+        background-color: white;
         height: 200px;
         overflow-y: scroll;
         border: solid 1px black;
     }
 
     .filterBox{
+        background-color: white;
         border: solid 1px black;
         #activities {
             display: flex;
@@ -19,5 +21,12 @@
             flex-wrap: wrap;
             height: 60px;
         }
+    }
+
+    #filterForm {
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+        padding: 5px;
     }
 }

@@ -57,6 +57,10 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  background-image: url("../assets/bright_background.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .background {
@@ -94,7 +98,7 @@ body {
 .viz {
   border: solid 1px black;
   fill: none;
-  width: 960px;
+  width: 1160px;
   margin-top: 100px;
 }
 
@@ -112,6 +116,7 @@ body {
   position: fixed;
   width: 100%;
   z-index: 1041;
+  font-family: "rockwell";
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -126,12 +131,16 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-family: "NPS Rawlinson";
   font-size: 20px;
 }
 .top_header .main_title a {
+  padding-top: 17px;
   text-decoration: none;
   color: #fff4cf;
+  font-size: 25px;
+}
+.top_header .main_title * {
+  padding: 10px;
 }
 .top_header .search_questions {
   display: flex;
@@ -151,18 +160,23 @@ body {
   text-decoration: none;
   padding-left: 30px;
 }
+.top_header img {
+  height: 40px;
+}
 
 .parks_sidebar {
   margin-top: 100px;
   padding-left: 40px;
-  width: 700px;
+  width: 500px;
 }
 .parks_sidebar .scrollable_parks_ul {
+  background-color: white;
   height: 200px;
   overflow-y: scroll;
   border: solid 1px black;
 }
 .parks_sidebar .filterBox {
+  background-color: white;
   border: solid 1px black;
 }
 .parks_sidebar .filterBox #activities {
@@ -170,4 +184,10 @@ body {
   flex-direction: column;
   flex-wrap: wrap;
   height: 60px;
+}
+.parks_sidebar #filterForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  padding: 5px;
 }
