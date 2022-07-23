@@ -4,7 +4,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    background-image: url("../assets/bright_background.jpg");
+    background-image: url("../assets/forest_background.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -48,7 +48,8 @@ body {
 
 .viz {
     border: solid 1px black;
-    background-color: #fff4cf;
+    // background-color: #fff4cf;
+    background-color: rgba(255, 244, 207, 0.9);
     fill: none;
     width: 1000px;
     margin-top: 100px;

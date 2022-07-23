@@ -1,26 +1,71 @@
 .parks_sidebar {
+    font-family: "Rockwell";
     // position: absolute;
     margin-top: 100px;
     // background-color: red;
-    padding-left: 20px;
+    padding-left: 10px;
     width: 500px;
 
-    .scrollable_parks_ul {
-        background-color: white;
-        height: 200px;
-        overflow-y: scroll;
-        border: solid 1px black;
+    .scrollable_parks {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #377040;
+        border-radius: 15px;
+        padding: 5px;
+
+        .parks-header{
+            // width: inherit;
+            color: #fff4cf;
+            font-weight: bold;
+            font-size: 30px;
+            vertical-align: center;
+            position:relative;
+            margin-top: 10px;
+            // background-color: red;
+        }
+
+        .scrollable_parks_ul {
+            background-color: white;
+            height: 225px;
+            overflow-y: scroll;
+            border: solid 1px black;
+            border-radius: 15px;
+    
+            ul {
+                padding: 10px;
+            }
+            
+            li {
+                border: solid 1px black;
+                border-radius: 5px;
+                padding: 5px;
+                font-weight: bold;
+                margin-bottom: 3px;
+                vertical-align: center;
+            }
+    
+            li:hover{
+                background-color: lightgrey;
+                cursor: default;
+            }
+            
+        }
     }
 
     .filterBox{
         background-color: white;
         border: solid 1px black;
+        border-radius: 15px;
+        padding: 5px;
         #activities {
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
             height: 60px;
         }
+        margin-bottom: 10px;
     }
 
     #filterForm {
@@ -28,5 +73,11 @@
         flex-direction: column;
         justify-content: left;
         padding: 5px;
+
+        #form-search{
+            background-color: #377040;
+            color: #fff4cf;
+            border-radius: 10px;
+        }
     }
 }
