@@ -97,10 +97,16 @@ body {
 
 .viz {
   border: solid 1px black;
+  background-color: #fff4cf;
   fill: none;
   width: 1000px;
   margin-top: 100px;
   border-radius: 15px;
+  padding: 5px;
+}
+.viz svg {
+  border-radius: 15px;
+  border: solid 1px black;
 }
 
 .location-viewer {
@@ -117,6 +123,8 @@ body {
   font-size: 30px;
   padding: 10px;
   vertical-align: center;
+  text-align: center;
+  padding-top: 15px;
 }
 
 .parks {

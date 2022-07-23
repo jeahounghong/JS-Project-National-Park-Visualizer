@@ -48,15 +48,17 @@ body {
 
 .viz {
     border: solid 1px black;
+    background-color: #fff4cf;
     fill: none;
     width: 1000px;
-    // background-color: black;
-    // background-blend-mode: color;
-    // margin-left: 40px;
-    // padding-top: 100px;
     margin-top: 100px;
-    // background-color: red;
     border-radius: 15px;
+    padding: 5px;
+    
+    svg {
+        border-radius: 15px;
+        border: solid 1px black;
+    }
 }
 
 .location-viewer{
@@ -75,6 +77,8 @@ body {
         font-size: 30px;
         padding: 10px;
         vertical-align: center;
+        text-align: center;
+        padding-top: 15px;
     }
 }
 

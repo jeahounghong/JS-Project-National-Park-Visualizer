@@ -19,9 +19,11 @@ export function generateMap(parks){
         20: "KS", 21: "MD", 22: "LA", 23: "ME", 24: "MD", 25: "MA", 26: "MI", 27: "MN", 28: "NE",
         29: "MO", 30: "MT", 31: "NE", 32: "NV", 33: "NH", 34: "NJ", 35: "NM", 36: "NY", 37: "NC",
         38: "ND", 39: "OH", 40: "OK", 41: "OR", 42: "PA", 43: "TN", 44: "RI", 45: "SC", 46: "SD",
-        47: "TN", 48: "TX", 49: "WV", 50: "VT", 51: "VA", 53: "WA", 54: "WV", 55: "WI"   
+        47: "TN", 48: "TX", 49: "WV", 50: "VT", 51: "VA", 53: "WA", 54: "WV", 55: "WI" , 56: "UT"  
     }
 
+    console.log("HII")
+    console.log()
     var margin = {
         // top: 10,
         // bottom: 10,
@@ -32,7 +34,7 @@ export function generateMap(parks){
         left: 0,
         right: 0
     }, width = parseInt(d3.select('.viz').style('width'))
-        , width = width - margin.left - margin.right
+        , width = width - margin.left - margin.right - 2*parseFloat(d3.select('.viz').style('padding'))
         , mapRatio = 0.5 // previously 0.5
         , height = width * mapRatio
         , active = d3.select(null);
@@ -47,7 +49,6 @@ export function generateMap(parks){
         .attr('height', height + margin.top + margin.bottom)
         .attr('width', width + margin.left + margin.right)
         .on('click', clicked);
-
 
     Promise.resolve(d3.json('https://gist.githubusercontent.com/mbostock/4090846/raw/us.json'))
         .then(ready);
