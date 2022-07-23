@@ -31,9 +31,12 @@
             <i class="fa fa-star" aria-hidden="true"></i>
         </div>
         <div class="search_questions">
-            <form action="">
-                <input type="search" placeholder="Search...">
-            </form>
+            <div class="search-container">
+                <form action="/action_page.php">
+                  <input type="text" placeholder="Search.." name="search">
+                  <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
 
             <!-- Trigger the modal with a button -->
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">?</button>
@@ -65,9 +68,9 @@
         <div class="viz"></div>
         <div class="parks_sidebar">
             <div class="filterBox">
-                
+                <p>Filter:</p>
                 <form id="filterForm"action="">
-                    <p>Filter:</p>
+                    
                     <label>Activities:
                         <label id="activities">
                             <label> 
