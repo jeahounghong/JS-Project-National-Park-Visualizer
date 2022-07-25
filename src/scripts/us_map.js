@@ -11,6 +11,16 @@ export function generateMap(parks){
         zoomToState(state);
     })
 
+    document.getElementById("parks_ul").addEventListener("click", (event)=>
+        {
+            event.preventDefault();
+            console.log(event.target.data)
+            if (event.target.data){
+                showParkPage(event.target.data)
+            }
+        }
+    )
+
     let states_features = [];
 
     const idToStates = {
@@ -170,17 +180,56 @@ export function generateMap(parks){
             if (idToStates[i] === state){
                 // console.log(i)
                 clicked(states_features[i-1])
+                drawParksByState(idToStates[i])
+
             }
         }
     }
 
+    function showParkPage(park_id) {
+        d3.select(".parks-sidebar-search").style('display','none')
+        d3.select(".park-showpage").style('display','block')
+    }
+
     function removeElementsByClass(className){
         const elements = document.getElementsByClassName(className);
-        console.log(elements)
         while(elements.length > 0){
             elements[0].parentNode.removeChild(elements[0]);
         }
+
     }
+
+    function drawParksByState(stateId){
+        g.append("g")
+            .selectAll("path")
+            .data(parks)
+            .enter().append("circle")
+            .attr("id", function(d){
+                return d.id;
+            })
+            .attr("class", "parks")
+            // .attr("id", d.id)
+            .attr("r", 2)
+            .attr("cx", function(d){
+                console.log(d)
+                let coords = projection([parseFloat(d.longitude),parseFloat(d.latitude)])
+                if (coords && d.states === idToStates[stateId]){
+                    return coords[0];
+                } else {
+                    return null;
+                }
+            })
+            .attr("cy", function(d){
+                let coords = projection([parseFloat(d.longitude),parseFloat(d.latitude)])
+                if (coords && d.states === idToStates[stateId]){
+                    return coords[1];
+                } else {
+                    return null;
+                }
+            })
+    }
+
+
 
     function reset() {
         currentState = "United States of America"
@@ -193,6 +242,8 @@ export function generateMap(parks){
             .duration(750)
             .style("stroke-width", "1.5px")
             .attr('transform', 'translate('+margin.left+','+margin.top+')');
+
+        testFunc();
 
     }
 

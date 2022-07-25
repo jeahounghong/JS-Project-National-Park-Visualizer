@@ -67,123 +67,172 @@
         <!-- <h1>National Park Visualizer</h1> -->
         <div class="viz"></div>
         <div class="parks_sidebar">
-            <div class="filterBox">
-                <p>Filter:</p>
-                <form id="filterForm"action="">
-                    
-                    <label>Activities:
-                        <label id="activities">
-                            <label> 
-                                <input type="checkbox"> Hiking <i class="fa-solid fa-person-hiking"></i>
-                            </label>
-                            <label>
-                                <input type="checkbox"> Fishing <i class="fa-solid fa-fish"></i>
-                            </label>
-                            <label>
-                                <input type="checkbox"> Stargazing <i class="fa-solid fa-star-and-crescent"></i>
-                            </label>
-                            <label>
-                                <input type="checkbox"> Hunting <i class="fa-solid fa-utensils"></i>
-                            </label>
-                            <label>
-                                <input type="checkbox"> Swimming <i class="fa-solid fa-person-swimming"></i>
-                            </label>
-                            <label>
-                                <input type="checkbox"> Picnic <i class="fa-solid fa-burger"></i>
+            <div class="parks-sidebar-search">
+                <div class="filterBox">
+                    <p>Filter:</p>
+                    <form id="filterForm"action="">
+                        
+                        <label>Activities:
+                            <label id="activities">
+                                <label> 
+                                    <input type="checkbox"> Hiking <i class="fa-solid fa-person-hiking"></i>
+                                </label>
+                                <label>
+                                    <input type="checkbox"> Fishing <i class="fa-solid fa-fish"></i>
+                                </label>
+                                <label>
+                                    <input type="checkbox"> Stargazing <i class="fa-solid fa-star-and-crescent"></i>
+                                </label>
+                                <label>
+                                    <input type="checkbox"> Hunting <i class="fa-solid fa-utensils"></i>
+                                </label>
+                                <label>
+                                    <input type="checkbox"> Swimming <i class="fa-solid fa-person-swimming"></i>
+                                </label>
+                                <label>
+                                    <input type="checkbox"> Picnic <i class="fa-solid fa-burger"></i>
+                                </label>
                             </label>
                         </label>
-                    </label>
-
-                    <label>Hours: 
-                        <select name="cars" id="cars">
-                            <option value="any">Any hours</option>
-                            <option value="9:00am - 5:00pm">9:00am - 5:00pm</option>
-                            <option value="8:00am - 6:00pm">8:00am - 6:00pm</option>
-                            <option value="All Day">All Day</option>
-                            <option value="Sunrise to Sunset">Sunrise to Sunset</option>
-                        </select>
-                    </label>
-
-                    <label>Fee:
-                        <label>
-                            <input type="radio" name="fee" value="has_fee">Has fee
+    
+                        <label>Hours: 
+                            <select name="cars" id="cars">
+                                <option value="any">Any hours</option>
+                                <option value="9:00am - 5:00pm">9:00am - 5:00pm</option>
+                                <option value="8:00am - 6:00pm">8:00am - 6:00pm</option>
+                                <option value="All Day">All Day</option>
+                                <option value="Sunrise to Sunset">Sunrise to Sunset</option>
+                            </select>
                         </label>
-                        <label>
-                            <input type="radio" name="fee" value="no_fee">No fee
+    
+                        <label>Fee:
+                            <label>
+                                <input type="radio" name="fee" value="has_fee">Has fee
+                            </label>
+                            <label>
+                                <input type="radio" name="fee" value="no_fee">No fee
+                            </label>
                         </label>
-                    </label>
-
-                    <label>States:
-                        <select name="state_select" id="state_select">
-                            <option value="any">Any state</option>
-                            <option value="AL">Alabama</option>
-                            <option value="AK">Alaska</option>
-                            <option value="AZ">Arizona</option>
-                            <option value="AR">Arkansas</option>
-                            <option value="CA">California</option>
-                            <option value="CO">Colorado</option>
-                            <option value="CT">Connecticut</option>
-                            <option value="DE">Delaware</option>
-                            <option value="FL">Florida</option>
-                            <option value="GA">Georgia</option>
-                            <option value="HI">Hawaii</option>
-                            <option value="ID">Idaho</option>
-                            <option value="IL">Illinois</option>
-                            <option value="IN">Indiana</option>
-                            <option value="IA">Iowa</option>
-                            <option value="KS">Kansas</option>
-                            <option value="KY">Kentucky</option>
-                            <option value="LA">Louisiana</option>
-                            <option value="ME">Maine</option>
-                            <option value="MD">Maryland</option>
-                            <option value="MA">Massachusetts</option>
-                            <option value="MI">Michigan</option>
-                            <option value="MN">Minnesota</option>
-                            <option value="MS">Mississippi</option>
-                            <option value="MO">Missouri</option>
-                            <option value="MT">Montana</option>
-                            <option value="NE">Nebraksa</option>
-                            <option value="NV">Nevada</option>
-                            <option value="NH">New Hampshire</option>
-                            <option value="NJ">New Jersey</option>
-                            <option value="NM">New Mexico</option>
-                            <option value="NY">New York</option>
-                            <option value="NC">North Carolina</option>
-                            <option value="ND">North Dakota</option>
-                            <option value="OH">Ohio</option>
-                            <option value="OK">Oklahoma</option>
-                            <option value="OR">Oregon</option>
-                            <option value="PA">Pennsylvania</option>
-                            <option value="RI">Rhode Island</option>
-                            <option value="SC">South Carolina</option>
-                            <option value="SD">South Dakota</option>
-                            <option value="TN">Tennessee</option>
-                            <option value="TX">Texas</option>
-                            <option value="UT">Utah</option>
-                            <option value="VT">Vermont</option>
-                            <option value="VA">Virginia</option>
-                            <option value="WA">Washington</option>
-                            <option value="WV">West Virginia</option>
-                            <option value="WI">Wisconsin</option>
-                            <option value="WY">Wyoming</option>
-                        </select>
-                    </label>
-
-                    <input id="form-search" type="submit" value="Search!">
-                </form>
+    
+                        <label>States:
+                            <select name="state_select" id="state_select">
+                                <option value="any">Any state</option>
+                                <option value="AL">Alabama</option>
+                                <option value="AK">Alaska</option>
+                                <option value="AZ">Arizona</option>
+                                <option value="AR">Arkansas</option>
+                                <option value="CA">California</option>
+                                <option value="CO">Colorado</option>
+                                <option value="CT">Connecticut</option>
+                                <option value="DE">Delaware</option>
+                                <option value="FL">Florida</option>
+                                <option value="GA">Georgia</option>
+                                <option value="HI">Hawaii</option>
+                                <option value="ID">Idaho</option>
+                                <option value="IL">Illinois</option>
+                                <option value="IN">Indiana</option>
+                                <option value="IA">Iowa</option>
+                                <option value="KS">Kansas</option>
+                                <option value="KY">Kentucky</option>
+                                <option value="LA">Louisiana</option>
+                                <option value="ME">Maine</option>
+                                <option value="MD">Maryland</option>
+                                <option value="MA">Massachusetts</option>
+                                <option value="MI">Michigan</option>
+                                <option value="MN">Minnesota</option>
+                                <option value="MS">Mississippi</option>
+                                <option value="MO">Missouri</option>
+                                <option value="MT">Montana</option>
+                                <option value="NE">Nebraksa</option>
+                                <option value="NV">Nevada</option>
+                                <option value="NH">New Hampshire</option>
+                                <option value="NJ">New Jersey</option>
+                                <option value="NM">New Mexico</option>
+                                <option value="NY">New York</option>
+                                <option value="NC">North Carolina</option>
+                                <option value="ND">North Dakota</option>
+                                <option value="OH">Ohio</option>
+                                <option value="OK">Oklahoma</option>
+                                <option value="OR">Oregon</option>
+                                <option value="PA">Pennsylvania</option>
+                                <option value="RI">Rhode Island</option>
+                                <option value="SC">South Carolina</option>
+                                <option value="SD">South Dakota</option>
+                                <option value="TN">Tennessee</option>
+                                <option value="TX">Texas</option>
+                                <option value="UT">Utah</option>
+                                <option value="VT">Vermont</option>
+                                <option value="VA">Virginia</option>
+                                <option value="WA">Washington</option>
+                                <option value="WV">West Virginia</option>
+                                <option value="WI">Wisconsin</option>
+                                <option value="WY">Wyoming</option>
+                            </select>
+                        </label>
+    
+                        <input id="form-search" type="submit" value="Search!">
+                    </form>
+                </div>
+    
+                <div class="scrollable_parks">
+                    <div class="parks-header">
+                        <p>Parks!</p> 
+                    </div>
+                    <div class="scrollable_parks_ul">
+                        <ul id="parks_ul">
+    
+                        </ul>
+                    </div>
+                </div>
             </div>
-
-            <div class="scrollable_parks">
-                <div class="parks-header">
-                    <p>Parks!</p> 
+            <div class="park-showpage">
+                <div class="park-name">
+                    <a href="">Park Name</a>
+                    <div class="park-close"> 
+                        <a href="">✖</a>
+                    </div>
                 </div>
-                <div class="scrollable_parks_ul">
-                    <ul id="parks_ul">
 
-                    </ul>
+                <div class="park-scroll">
+
+                    <div class="park-images">
+                        <img id="first-image" src="assets/american-star.png" alt="">
+                        <div class="small-images">
+                            <img src="assets/american-star.png" alt="">
+                            <img src="assets/american-star.png" alt="">
+                            <img src="assets/american-star.png" alt="">
+                            <img src="assets/american-star.png" alt="">
+                            <img src="assets/american-star.png" alt="">
+                            <img src="assets/american-star.png" alt="">
+                            <img src="assets/american-star.png" alt="">
+                            <img src="assets/american-star.png" alt="">
+                        </div>
+                    </div>
+    
+                    <div class="description">
+                        <h4>Description:</h3>
+                        <p>
+                            This is a description about a national park. My personal favorite is Haleakala. The sunsets are striking and the stargazing is like none other. 
+                        </p>
+                    </div>
+    
+                    <div class="gmap">
+                        <iframe id="parks-maps"
+                            width="480px"
+                            height="450px"
+                            style="border:5"
+                            loading="lazy"
+                            allowfullscreen
+                            referrerpolicy="no-referrer-when-downgrade"
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD4MfnERKAJsAGVZVESAGKtLS7M3xm29_c
+                            &q=Space+Needle,Seattle+WA">
+                        </iframe>
+                    </div>
                 </div>
+                
             </div>
         </div>
+
         
     </body>
 </html>

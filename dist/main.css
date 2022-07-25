@@ -194,8 +194,14 @@ body {
   margin-top: 100px;
   padding-left: 10px;
   width: 500px;
+  /*
+
+      Parks Show Page! 
+
+      * This should *NEVER* be rendered with the parks-side-bar search. 
+  */
 }
-.parks_sidebar .scrollable_parks {
+.parks_sidebar .parks-sidebar-search .scrollable_parks {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -204,7 +210,7 @@ body {
   border-radius: 15px;
   padding: 5px;
 }
-.parks_sidebar .scrollable_parks .parks-header {
+.parks_sidebar .parks-sidebar-search .scrollable_parks .parks-header {
   color: #fff4cf;
   font-weight: bold;
   font-size: 20px;
@@ -212,16 +218,16 @@ body {
   position: relative;
   margin-top: 10px;
 }
-.parks_sidebar .scrollable_parks .scrollable_parks_ul {
+.parks_sidebar .parks-sidebar-search .scrollable_parks .scrollable_parks_ul {
   background-color: #fff4cf;
   height: 210px;
   overflow-y: scroll;
   border-radius: 15px;
 }
-.parks_sidebar .scrollable_parks .scrollable_parks_ul ul {
+.parks_sidebar .parks-sidebar-search .scrollable_parks .scrollable_parks_ul ul {
   padding: 10px;
 }
-.parks_sidebar .scrollable_parks .scrollable_parks_ul li {
+.parks_sidebar .parks-sidebar-search .scrollable_parks .scrollable_parks_ul li {
   border: solid 1px black;
   border-radius: 5px;
   background-color: white;
@@ -230,30 +236,30 @@ body {
   margin-bottom: 3px;
   vertical-align: center;
 }
-.parks_sidebar .scrollable_parks .scrollable_parks_ul li:hover {
+.parks_sidebar .parks-sidebar-search .scrollable_parks .scrollable_parks_ul li:hover {
   background-color: lightgrey;
   cursor: default;
 }
-.parks_sidebar .filterBox {
+.parks_sidebar .parks-sidebar-search .filterBox {
   background-color: rgba(55, 112, 64, 0.9);
   border-radius: 15px;
   padding: 5px;
   margin-bottom: 10px;
 }
-.parks_sidebar .filterBox p {
+.parks_sidebar .parks-sidebar-search .filterBox p {
   color: #fff4cf;
   text-align: center;
   font-size: 20px;
   font-weight: bold;
   margin-top: 10px;
 }
-.parks_sidebar .filterBox #activities {
+.parks_sidebar .parks-sidebar-search .filterBox #activities {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   height: 60px;
 }
-.parks_sidebar #filterForm {
+.parks_sidebar .parks-sidebar-search #filterForm {
   display: flex;
   flex-direction: column;
   justify-content: left;
@@ -261,8 +267,61 @@ body {
   background-color: #fff4cf;
   border-radius: 10px;
 }
-.parks_sidebar #filterForm #form-search {
+.parks_sidebar .parks-sidebar-search #filterForm #form-search {
   background-color: #377040;
   color: #fff4cf;
   border-radius: 10px;
+}
+.parks_sidebar .park-showpage {
+  background-color: rgba(55, 112, 64, 0.9);
+  color: #fff4cf;
+  display: none;
+  border-radius: 15px;
+  padding: 5px;
+}
+.parks_sidebar .park-showpage .park-name {
+  font-size: 20px;
+  padding-left: 5px;
+}
+.parks_sidebar .park-showpage .park-name a {
+  color: #fff4cf;
+}
+.parks_sidebar .park-showpage .park-name .park-close {
+  float: right;
+  padding-right: 5px;
+}
+.parks_sidebar .park-showpage .park-scroll {
+  overflow-y: scroll;
+  height: 510px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.parks_sidebar .park-showpage .park-scroll .park-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  padding: 5px;
+}
+.parks_sidebar .park-showpage .park-scroll .park-images img {
+  height: 70px;
+}
+.parks_sidebar .park-showpage .park-scroll .park-images #first-image {
+  height: 140px;
+}
+.parks_sidebar .park-showpage .park-scroll .description {
+  margin-top: 5px;
+  background-color: #fff4cf;
+  color: #377040;
+  padding: 5px;
+  border-radius: 10px;
+}
+.parks_sidebar .park-showpage .park-scroll .gmap {
+  margin-top: 5px;
+}
+.parks_sidebar .park-showpage .park-scroll .gmap #parks-map {
+  background-color: blue;
+  border-radius: 50%;
+  overflow: hidden;
 }

@@ -30,9 +30,7 @@ function populateAllParks(){
     for(let i = 0; i < parks.length; i++){
         const node = document.createElement("li");
         node.innerText = `${parks[i].fullName}, ${parks[i].states}`;
-        // console.log(parks[i].entranceFees)
+        node.data = parks[i].id
         parks_list.appendChild(node);
     }
-    // console.log(parks.length)
-
 }
