@@ -158,14 +158,14 @@
                     img{
                         // display: none;
                         height: 250px;
-                        border: solid 8px #fff4cf;
+                        border: solid 10px #fff4cf;
                         filter: brightness(100%);
                         transition: 0.3s;
-                        
                     }
                     img:hover{
                         filter: brightness(100%);
                         transition: 0.3s;
+                        border: solid 5px #fff4cf;
                     }
                 }
 

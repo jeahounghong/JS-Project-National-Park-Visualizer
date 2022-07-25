@@ -318,13 +318,14 @@ body {
 }
 .parks_sidebar .park-showpage .park-scroll .park-images .small-images img {
   height: 250px;
-  border: solid 8px #fff4cf;
+  border: solid 10px #fff4cf;
   filter: brightness(100%);
   transition: 0.3s;
 }
 .parks_sidebar .park-showpage .park-scroll .park-images .small-images img:hover {
   filter: brightness(100%);
   transition: 0.3s;
+  border: solid 5px #fff4cf;
 }
 .parks_sidebar .park-showpage .park-scroll .park-images :hover img {
   filter: brightness(50%);
