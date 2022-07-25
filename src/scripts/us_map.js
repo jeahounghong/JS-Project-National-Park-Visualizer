@@ -21,16 +21,7 @@ export function generateMap(parks){
         }
     )
 
-    
-
-    // document.getElementById("parks-dots").addEventListener("click", (event)=>{
-    //     event.preventDefault();
-    //     // event.stopPropagation();
-    //     console.log(event.target);
-
-    // })
-
-    let states_features = [];
+    let states_features = {};
 
     const idToStates = {
         1: "AL", 2: "AK", 3: "AR", 4: "AZ", 5: "AR", 6: "CA", 7: "CT", 8: "CO", 9: "CT", 10: "DE",
@@ -41,7 +32,6 @@ export function generateMap(parks){
         47: "TN", 48: "TX", 49: "WV", 50: "VT", 51: "VA", 53: "WA", 54: "WV", 55: "WI" , 56: "UT"  
     }
 
-    console.log("HII")
     console.log()
     var margin = {
         // top: 10,
@@ -112,9 +102,7 @@ export function generateMap(parks){
             .attr("id", (d)=>{
                 // console.log(d);
                 if (idToStates[d.id]){
-                    // console.log(d.id);
-                    // console.log(idToStates[d.id])
-                    states_features.push(d)
+                    states_features[idToStates[d.id]] = d
                     return idToStates[d.id];
                 } else {
                     return `${d.id}`
@@ -122,13 +110,14 @@ export function generateMap(parks){
             })
             .on("click", clicked);
 
+        console.log(states_features)
+
         g.append("path")
             .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
             .attr("id", "state-borders")
             .attr("d", path);
         
         g.append("g")
-            // .attr("id","parks")
             .attr("id", "parks-dots")
             .selectAll("path")
             .data(parks)
@@ -137,13 +126,8 @@ export function generateMap(parks){
                 return d.id;
             })
             .attr("class", "parks")
-            // .attr("name",function(d){
-            //     return d.fullName;
-            // })
-            // .attr("id", d.id)
             .attr("r", 2)
             .attr("cx", function(d){
-                // console.log(d.id)
                 let coords = projection([parseFloat(d.longitude),parseFloat(d.latitude)])
                 if (coords){
                     return coords[0];
@@ -201,22 +185,23 @@ export function generateMap(parks){
         // console.log(state)
         for(let i =1; i < 60; i++){
             if (idToStates[i] === state){
-                // console.log(i)
-                clicked(states_features[i-1])
-                drawParksByState(idToStates[i])
+                clicked(states_features[idToStates[i]])
+                // drawParksByState(idToStates[i])
 
             }
         }
     }
+
 
     /*
         This function is responsible for rendering the entire park page. It should load:
             - park NAME
             - park DESCRIPTION
             - park OPERATING HOURS
-            - park A
+            - park ACTIVITIES
     */
     function showParkPage(park_id) {
+
 
         // Declares var showPark to show selected park 
         let showPark;
@@ -227,6 +212,10 @@ export function generateMap(parks){
                 showPark = parks[i]
             }
         }
+
+        // Zoom to appropriate state
+        zoomToState(showPark.states)
+
 
         // Adds park name
         d3.select("#park-name").html(`${showPark.fullName}`)
@@ -276,9 +265,6 @@ export function generateMap(parks){
                 d3.select(".parks-sidebar-search").style('display','none')
                 d3.select(".park-showpage").style('display','block')
             })
-
-        
-
     }
 
     function removeElementsByClass(className){

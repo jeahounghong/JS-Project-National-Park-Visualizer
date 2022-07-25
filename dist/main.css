@@ -302,7 +302,7 @@ body {
 }
 .parks_sidebar .park-showpage .park-scroll {
   overflow-y: scroll;
-  height: 510px;
+  height: 710px;
   border-radius: 15px;
   align-items: center;
 }
@@ -340,7 +340,7 @@ body {
   border-radius: 10px;
 }
 .parks_sidebar .park-showpage .park-scroll .activities ul {
-  height: 200px;
+  max-height: 200px;
   overflow: scroll;
 }
 .parks_sidebar .park-showpage .park-scroll .gmap {

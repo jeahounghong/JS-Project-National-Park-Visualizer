@@ -136,7 +136,7 @@
 
         .park-scroll{
             overflow-y: scroll;
-            height: 510px;
+            height: 710px;
             border-radius: 15px;
             // display: flex;
             // flex-direction: column;
@@ -188,7 +188,7 @@
                 border-radius: 10px;
 
                 ul {
-                    height: 200px;
+                    max-height: 200px;
                     overflow: scroll;
                 }
             }
