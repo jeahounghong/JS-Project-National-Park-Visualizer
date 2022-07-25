@@ -1,11 +1,6 @@
 // const ParksAPI = require('./parksAPI');
- const US_MAP = require('./scripts/us_map')
-//  const  = require('./scripts/us_map')
-// let api_data = ParksAPI.data();
-
-// let node1 = document.createElement("h1")
-// node1.innerHTML("POOPOO")
-// document.getElementById("body").appendChild(node1)
+const US_MAP = require('./scripts/us_map')
+const Lightbox = require('./scripts/parksLightbox')
 
 
 let parks;
@@ -40,7 +35,8 @@ function populateAllParks(){
         if (event.target.data){
             let parkDot = document.getElementById(event.target.data)
             parkDot.style.fill = "yellow"
-            parkDot.setAttribute("r",5)
+            let selectedParkRadius = document.querySelector(".location").innerHTML.includes("United States of America") ? 6 : 3;
+            parkDot.setAttribute("r", selectedParkRadius)
             parkDot.style.zIndex = 10000
         }
     })
@@ -49,8 +45,9 @@ function populateAllParks(){
         event.preventDefault();
         if (event.target.data){
             let parkDot = document.getElementById(event.target.data)
-            parkDot.style.fill = "green"
-            parkDot.setAttribute("r",2)
+            parkDot.style.fill = "green";
+            let parkRadius = document.querySelector(".location").innerHTML.includes("United States of America") ? 2 : 1;
+            parkDot.setAttribute("r", parkRadius)
             parkDot.style.zIndex = 500
             // console.log(parkDot)
         }

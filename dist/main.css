@@ -239,6 +239,7 @@ body {
 }
 .parks_sidebar .parks-sidebar-search .scrollable_parks .scrollable_parks_ul li {
   border: solid 1px black;
+  width: 460px;
   border-radius: 5px;
   background-color: white;
   padding: 5px;
@@ -267,7 +268,7 @@ body {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 60px;
+  height: 65px;
 }
 .parks_sidebar .parks-sidebar-search #filterForm {
   display: flex;
@@ -309,14 +310,24 @@ body {
 .parks_sidebar .park-showpage .park-scroll .park-images .small-images {
   width: 475px;
   border-radius: 15px;
-  height: 150px;
+  height: 250px;
   display: inline-block;
   overflow-x: auto;
   white-space: nowrap;
   overflow-y: hidden;
 }
 .parks_sidebar .park-showpage .park-scroll .park-images .small-images img {
-  height: 150px;
+  height: 250px;
+  border: solid 8px #fff4cf;
+  filter: brightness(100%);
+  transition: 0.3s;
+}
+.parks_sidebar .park-showpage .park-scroll .park-images .small-images img:hover {
+  filter: brightness(100%);
+  transition: 0.3s;
+}
+.parks_sidebar .park-showpage .park-scroll .park-images :hover img {
+  filter: brightness(50%);
 }
 .parks_sidebar .park-showpage .park-scroll .description {
   margin-top: 5px;

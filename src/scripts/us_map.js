@@ -1,4 +1,3 @@
-// document.addEventListener("DOMContentLoaded", () => {
 export function generateMap(parks){
 
     // var *currentState*: will be responsible for the location displayed beneath the map
@@ -15,14 +14,34 @@ export function generateMap(parks){
         20: "KS", 21: "MD", 22: "LA", 23: "ME", 24: "MD", 25: "MA", 26: "MI", 27: "MN", 28: "NE",
         29: "MO", 30: "MT", 31: "NE", 32: "NV", 33: "NH", 34: "NJ", 35: "NM", 36: "NY", 37: "NC",
         38: "ND", 39: "OH", 40: "OK", 41: "OR", 42: "PA", 43: "TN", 44: "RI", 45: "SC", 46: "SD",
-        47: "TN", 48: "TX", 49: "WV", 50: "VT", 51: "VA", 53: "WA", 54: "WV", 55: "WI" , 56: "UT"  
+        47: "TN", 48: "TX", 49: "UT", 50: "VT", 51: "VA", 53: "WA", 54: "WV", 55: "WI" , 56: "UT"  
     }
 
-    // 
+    const AbToState = {
+        "AL": "Alabama", "AK": "Alaska", "AR": "Arkansas", "AZ": "Arizona", "CA": "California",
+        "CT": "Connecticut", "CO": "Colorado", "DE": "Delaware", "GA": "Georgia", "FL": "Florida",
+        "IL": "Illinois", "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana",
+        "IA": "Iowa", "KS": "Kansas", "MD": "Maryland", "LA": "Louisiana", "ME": "Maine",
+        "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota", "NE": "Nebraska", "MO": "Missouri",
+        "MT": "Montana", "NV": "Nevada", "NH": "New Hampshire", "NM": "New Mexico", "NC": "North Carolina",
+        "NY": "New York", "NJ": "New Jersey", "ND": "North Dakota", "OH": "Ohio", "OK": "Oklahoma",
+        "OR": "Oregon", "PA": "Pennsylvania", "TN": "Tennessee", "RI": "Rhode Island", "SC": "South Carolina",
+        "SD": "South Dakota", "TX": "Texas", "UT": "Utah", "VT": "Vermont", "VA": "Virginia", "WA": "Washington",
+        "WV": "West Virginia", "WI": "Wisconsin"
+    }
+
+    
     document.addEventListener('submit', (event)=>{
         event.preventDefault();
         let state = document.getElementById("state_select").value;
-        let statePath = document.getElementById(state);
+        let activitiesForm = document.getElementById("activities");
+        let activities = {}
+        for(let i = 0; i < activitiesForm.children.length; i++){
+            activities[activitiesForm.children[i].children[0].value] = activitiesForm.children[i].children[0].checked
+        }
+        console.log(activities)
+        
+        // let statePath = document.getElementById(state);
         zoomToState(state);
     })
 
@@ -42,11 +61,6 @@ export function generateMap(parks){
 
     })
 
-    
-
-    
-
-    console.log()
     var margin = {
         // top: 10,
         // bottom: 10,
@@ -170,11 +184,12 @@ export function generateMap(parks){
 
     function clicked(d) {
         // console.log(d)
-        currentState = idToStates[d.id]
-        d3.select('.location').html(`You are currently viewing: ${currentState}`)
+        currentState = idToStates[d.id];
+        updatesParksList(currentState);
+        d3.selectAll('.parks').attr("r",1)
+        d3.select('.location').html(`You are currently viewing: ${AbToState[currentState]}`)
 
         if (d3.select('.background').node() === this) return reset();
-
         if (active.node() === this) return reset();
 
         active.classed("active", false);
@@ -195,7 +210,7 @@ export function generateMap(parks){
     }
 
     function zoomToState(state){
-        updatesParksList(state);
+        // updatesParksList(state);
 
         if (state === "any"){
             reset()
@@ -244,12 +259,16 @@ export function generateMap(parks){
             }
         }
 
+        let parkDot = document.getElementById(showPark.id)
+        // console.log(parkDot)
+
         // Zoom to appropriate state
         zoomToState(showPark.states)
 
 
         // Adds park name
         d3.select("#park-name").html(`${showPark.fullName}`)
+        d3.select("#park-name").attr("href", `${showPark.url}`)
 
         // Adds park description
         document.querySelector(".description p").innerHTML = showPark.description
@@ -286,12 +305,23 @@ export function generateMap(parks){
             .then(images => images.photos.photo)
             .then((images) => {
                 let lightbox = document.querySelector(".small-images")
+                let count = 0;
                 removeAllChildNodes("small-images")
-                for(let i = 0; i < 10; i++){
-                    let image = document.createElement("img")
-                    image.src = `${images[i].url_o}`;
-                    image.loading = "lazy"
+
+                for (let i = 0; i < showPark.images.length;i ++){
+                    let image = document.createElement("img");
+                    image.src = showPark.images[i].url;
+                    image.loading = 'lazy';
                     lightbox.appendChild(image)
+                }
+
+                for(let i = 0; i < 10; i++){
+                    if (images[i].url_o){
+                        let image = document.createElement("img")
+                        image.src = `${images[i].url_o}`;
+                        image.loading = "lazy"
+                        lightbox.appendChild(image)
+                    }
                 }
                 console.log(lightbox)
             }).then(()=>{
@@ -349,7 +379,9 @@ export function generateMap(parks){
 
 
     function reset() {
+        d3.selectAll('.parks').attr("r",2)
         updatesParksList("any");
+        // ZoomedIn = false;
         currentState = "United States of America"
         d3.select('.location').html(`You are currently viewing: ${currentState}`)
         active.classed("active", false);
