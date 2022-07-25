@@ -16,6 +16,7 @@ export function generateMap(parks){
             event.preventDefault();
             console.log(event.target.data)
             if (event.target.data){
+
                 showParkPage(event.target.data)
             }
         }
@@ -187,8 +188,48 @@ export function generateMap(parks){
     }
 
     function showParkPage(park_id) {
-        d3.select(".parks-sidebar-search").style('display','none')
-        d3.select(".park-showpage").style('display','block')
+
+        // Declares var showPark to show selected park 
+        let showPark;
+
+        // Search for park from parks
+        for(let i = 0; i < 467; i++){
+            if (parks[i].id === park_id){
+                showPark = parks[i]
+            }
+        }
+
+        
+
+        // Adds park name
+        d3.select("#park-name").html(`${showPark.fullName}`)
+        d3.select(".description p").html(`${showPark.description}`)
+
+        // Flickr_URL
+        let flickrURL = 
+            `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e19ad1e0c6bf594b6f00d76788a2ad44&format=json&nojsoncallback=1&text=${showPark.fullName}&extras=url_o`
+        
+
+        fetch(flickrURL)
+            .then(res => res.json())
+            .then(images => images.photos.photo)
+            .then((images) => {
+                let lightbox = document.querySelector(".small-images")
+                removeAllChildNodes("small-images")
+                for(let i = 0; i < 10; i++){
+                    let image = document.createElement("img")
+                    console.log(images[i].url_o)
+                    image.src = `${images[i].url_o}`;
+                    console.log(image)
+                    lightbox.appendChild(image)
+                }
+                console.log(lightbox)
+            }).then(()=>{
+                // Clears out search-bar and renders parks showpage
+                d3.select(".parks-sidebar-search").style('display','none')
+                d3.select(".park-showpage").style('display','block')
+            })
+
     }
 
     function removeElementsByClass(className){
@@ -196,7 +237,13 @@ export function generateMap(parks){
         while(elements.length > 0){
             elements[0].parentNode.removeChild(elements[0]);
         }
+    }
 
+    function removeAllChildNodes(className){
+        let parent = document.getElementsByClassName(className)[0];
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
     }
 
     function drawParksByState(stateId){
