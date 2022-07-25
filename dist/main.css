@@ -325,6 +325,13 @@ body {
   padding: 5px;
   border-radius: 10px;
 }
+.parks_sidebar .park-showpage .park-scroll .hoursOfOp {
+  margin-top: 5px;
+  background-color: #fff4cf;
+  color: #377040;
+  padding: 5px;
+  border-radius: 10px;
+}
 .parks_sidebar .park-showpage .park-scroll .activities {
   margin-top: 5px;
   background-color: #fff4cf;
@@ -333,7 +340,7 @@ body {
   border-radius: 10px;
 }
 .parks_sidebar .park-showpage .park-scroll .activities ul {
-  height: 100px;
+  height: 200px;
   overflow: scroll;
 }
 .parks_sidebar .park-showpage .park-scroll .gmap {

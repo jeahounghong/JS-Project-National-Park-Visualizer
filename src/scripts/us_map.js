@@ -54,7 +54,7 @@ export function generateMap(parks){
         right: 0
     }, width = parseInt(d3.select('.viz').style('width'))
         , width = width - margin.left - margin.right - 2*parseFloat(d3.select('.viz').style('padding'))
-        , mapRatio = 0.5 // previously 0.5
+        , mapRatio = 0.7 // previously 0.5
         , height = width * mapRatio
         , active = d3.select(null);
 
@@ -209,6 +209,13 @@ export function generateMap(parks){
         }
     }
 
+    /*
+        This function is responsible for rendering the entire park page. It should load:
+            - park NAME
+            - park DESCRIPTION
+            - park OPERATING HOURS
+            - park A
+    */
     function showParkPage(park_id) {
 
         // Declares var showPark to show selected park 
@@ -227,13 +234,22 @@ export function generateMap(parks){
         // Adds park description
         d3.select(".description p").html(`${showPark.description}`)
 
+        // Adds the Operating Hours
+        let node1 = document.querySelector(".hoursOfOp-ul")
+        console.log(node1)
+        for (let i = 0; i < showPark.operatingHours.length; i++){
+            let descriptionOfHours = document.createElement("li")
+            descriptionOfHours.innerHTML = showPark.operatingHours[i].description
+            node1.appendChild(descriptionOfHours)
+        }
+
+        // Adds the Activities
         let node = document.querySelector(".activities-ul")
         for (let i = 0; i < showPark.activities.length;i++){
             let activity = document.createElement("li")
             activity.innerHTML = showPark.activities[i].name
             node.appendChild(activity);
         }
-
 
         // Flickr_URL
         let flickrURL = 
@@ -322,9 +338,6 @@ export function generateMap(parks){
             .duration(750)
             .style("stroke-width", "1.5px")
             .attr('transform', 'translate('+margin.left+','+margin.top+')');
-
-        testFunc();
-
     }
 
 }
