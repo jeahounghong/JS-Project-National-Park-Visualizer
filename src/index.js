@@ -34,4 +34,25 @@ function populateAllParks(){
         node.data = parks[i].id
         parks_list.appendChild(node);
     }
+
+    parks_list.addEventListener('mouseover', (event) => {
+        event.preventDefault();
+        if (event.target.data){
+            let parkDot = document.getElementById(event.target.data)
+            parkDot.style.fill = "yellow"
+            parkDot.setAttribute("r",5)
+            parkDot.style.zIndex = 10000
+        }
+    })
+
+    parks_list.addEventListener('mouseout', (event) => {
+        event.preventDefault();
+        if (event.target.data){
+            let parkDot = document.getElementById(event.target.data)
+            parkDot.style.fill = "green"
+            parkDot.setAttribute("r",2)
+            parkDot.style.zIndex = 500
+            // console.log(parkDot)
+        }
+    })
 }

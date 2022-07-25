@@ -1,28 +1,14 @@
 // document.addEventListener("DOMContentLoaded", () => {
 export function generateMap(parks){
 
+    // var *currentState*: will be responsible for the location displayed beneath the map
     let currentState = "United States of America"
 
-    document.addEventListener('submit', (event)=>{
-        event.preventDefault();
-        let state = document.getElementById("state_select").value;
-        let statePath = document.getElementById(state);
-        removeElementsByClass("parks");
-        zoomToState(state);
-    })
-
-    document.getElementById("parks_ul").addEventListener("click", (event)=>
-        {
-            event.preventDefault();
-            // console.log(event.target.data)
-            if (event.target.data){
-                showParkPage(event.target.data)
-            }
-        }
-    )
-
+    // var *state_features*: holds a key value pair for the state name and the feature that will be passed 
+    //                       into the clicked function
     let states_features = {};
 
+    // var *idToStates* holds the key value pairs of the US topojson id's to their respective states
     const idToStates = {
         1: "AL", 2: "AK", 3: "AR", 4: "AZ", 5: "AR", 6: "CA", 7: "CT", 8: "CO", 9: "CT", 10: "DE",
         11: "GA", 12: "FL", 13: "GA", 14: "IL", 15: "HI", 16: "ID", 17: "IL", 18: "IN", 19: "IA",
@@ -31,6 +17,34 @@ export function generateMap(parks){
         38: "ND", 39: "OH", 40: "OK", 41: "OR", 42: "PA", 43: "TN", 44: "RI", 45: "SC", 46: "SD",
         47: "TN", 48: "TX", 49: "WV", 50: "VT", 51: "VA", 53: "WA", 54: "WV", 55: "WI" , 56: "UT"  
     }
+
+    // 
+    document.addEventListener('submit', (event)=>{
+        event.preventDefault();
+        let state = document.getElementById("state_select").value;
+        let statePath = document.getElementById(state);
+        zoomToState(state);
+    })
+
+    document.getElementById("parks_ul").addEventListener("click", (event)=>{
+        event.preventDefault();
+        // console.log(event.target.data)
+        if (event.target.data){
+            showParkPage(event.target.data)
+        }
+    })
+
+    document.getElementById("park-close").addEventListener("click", (event)=>{
+        event.preventDefault();
+        d3.select(".parks-sidebar-search").style('display','block')
+        d3.select(".park-showpage").style('display','none')
+        reset();
+
+    })
+
+    
+
+    
 
     console.log()
     var margin = {
@@ -44,7 +58,7 @@ export function generateMap(parks){
         right: 0
     }, width = parseInt(d3.select('.viz').style('width'))
         , width = width - margin.left - margin.right - 2*parseFloat(d3.select('.viz').style('padding'))
-        , mapRatio = 0.7 // previously 0.5
+        , mapRatio = 0.6 // previously 0.5
         , height = width * mapRatio
         , active = d3.select(null);
 
@@ -82,7 +96,6 @@ export function generateMap(parks){
         .html(`You are currently viewing: ${currentState}`)
 
     function ready(us) {
-
         g.append("g")
             .attr("id", "counties")
             .selectAll("path")
@@ -182,12 +195,30 @@ export function generateMap(parks){
     }
 
     function zoomToState(state){
-        // console.log(state)
-        for(let i =1; i < 60; i++){
-            if (idToStates[i] === state){
-                clicked(states_features[idToStates[i]])
-                // drawParksByState(idToStates[i])
+        updatesParksList(state);
 
+        if (state === "any"){
+            reset()
+        } else {
+            for(let i =1; i < 60; i++){
+                if (idToStates[i] === state){
+                    clicked(states_features[state])
+                }
+            }
+        }
+    }
+
+    function updatesParksList(state){
+        let stateScroll = document.getElementById("parks_ul");
+        for(let i = 0; i < stateScroll.children.length; i++){
+            let parkListElement = stateScroll.children[i];
+            if (state === "any" || state === ""){
+                parkListElement.style.display = "block"
+            }
+            else if (parkListElement.innerHTML.includes(state)){
+                parkListElement.style.display = "block"
+            } else {
+                parkListElement.style.display = "none"
             }
         }
     }
@@ -221,9 +252,10 @@ export function generateMap(parks){
         d3.select("#park-name").html(`${showPark.fullName}`)
 
         // Adds park description
-        d3.select(".description p").html(`${showPark.description}`)
+        document.querySelector(".description p").innerHTML = showPark.description
 
         // Adds the Operating Hours
+        removeAllChildNodes("hoursOfOp-ul")
         let node1 = document.querySelector(".hoursOfOp-ul")
         console.log(node1)
         for (let i = 0; i < showPark.operatingHours.length; i++){
@@ -233,6 +265,7 @@ export function generateMap(parks){
         }
 
         // Adds the Activities
+        removeAllChildNodes("activities-ul")
         let node = document.querySelector(".activities-ul")
         for (let i = 0; i < showPark.activities.length;i++){
             let activity = document.createElement("li")
@@ -257,6 +290,7 @@ export function generateMap(parks){
                 for(let i = 0; i < 10; i++){
                     let image = document.createElement("img")
                     image.src = `${images[i].url_o}`;
+                    image.loading = "lazy"
                     lightbox.appendChild(image)
                 }
                 console.log(lightbox)
@@ -267,12 +301,13 @@ export function generateMap(parks){
             })
     }
 
-    function removeElementsByClass(className){
-        const elements = document.getElementsByClassName(className);
-        while(elements.length > 0){
-            elements[0].parentNode.removeChild(elements[0]);
-        }
-    }
+    // function removeElementsByClass(className){
+    //     const elements = document.getElementsByClassName(className);
+    //     while(elements.length > 0){
+    //         elements[0].parentNode.removeChild(elements[0]);
+    //     }
+    // }
+
 
     function removeAllChildNodes(className){
         let parent = document.getElementsByClassName(className)[0];
@@ -281,39 +316,40 @@ export function generateMap(parks){
         }
     }
 
-    function drawParksByState(stateId){
-        g.append("g")
-            .selectAll("path")
-            .data(parks)
-            .enter().append("circle")
-            .attr("id", function(d){
-                return d.id;
-            })
-            .attr("class", "parks")
-            // .attr("id", d.id)
-            .attr("r", 2)
-            .attr("cx", function(d){
-                console.log(d)
-                let coords = projection([parseFloat(d.longitude),parseFloat(d.latitude)])
-                if (coords && d.states === idToStates[stateId]){
-                    return coords[0];
-                } else {
-                    return null;
-                }
-            })
-            .attr("cy", function(d){
-                let coords = projection([parseFloat(d.longitude),parseFloat(d.latitude)])
-                if (coords && d.states === idToStates[stateId]){
-                    return coords[1];
-                } else {
-                    return null;
-                }
-            })
-    }
+    // function drawParksByState(stateId){
+    //     g.append("g")
+    //         .selectAll("path")
+    //         .data(parks)
+    //         .enter().append("circle")
+    //         .attr("id", function(d){
+    //             return d.id;
+    //         })
+    //         .attr("class", "parks")
+    //         // .attr("id", d.id)
+    //         .attr("r", 2)
+    //         .attr("cx", function(d){
+    //             console.log(d)
+    //             let coords = projection([parseFloat(d.longitude),parseFloat(d.latitude)])
+    //             if (coords && d.states === idToStates[stateId]){
+    //                 return coords[0];
+    //             } else {
+    //                 return null;
+    //             }
+    //         })
+    //         .attr("cy", function(d){
+    //             let coords = projection([parseFloat(d.longitude),parseFloat(d.latitude)])
+    //             if (coords && d.states === idToStates[stateId]){
+    //                 return coords[1];
+    //             } else {
+    //                 return null;
+    //             }
+    //         })
+    // }
 
 
 
     function reset() {
+        updatesParksList("any");
         currentState = "United States of America"
         d3.select('.location').html(`You are currently viewing: ${currentState}`)
         active.classed("active", false);
