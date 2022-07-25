@@ -14,13 +14,21 @@ export function generateMap(parks){
     document.getElementById("parks_ul").addEventListener("click", (event)=>
         {
             event.preventDefault();
-            console.log(event.target.data)
+            // console.log(event.target.data)
             if (event.target.data){
-
                 showParkPage(event.target.data)
             }
         }
     )
+
+    
+
+    // document.getElementById("parks-dots").addEventListener("click", (event)=>{
+    //     event.preventDefault();
+    //     // event.stopPropagation();
+    //     console.log(event.target);
+
+    // })
 
     let states_features = [];
 
@@ -121,6 +129,7 @@ export function generateMap(parks){
         
         g.append("g")
             // .attr("id","parks")
+            .attr("id", "parks-dots")
             .selectAll("path")
             .data(parks)
             .enter().append("circle")
@@ -128,6 +137,9 @@ export function generateMap(parks){
                 return d.id;
             })
             .attr("class", "parks")
+            // .attr("name",function(d){
+            //     return d.fullName;
+            // })
             // .attr("id", d.id)
             .attr("r", 2)
             .attr("cx", function(d){
@@ -146,6 +158,16 @@ export function generateMap(parks){
                 } else {
                     return null;
                 }
+            })
+            .append("span")
+            .attr("class","tooltiptext")
+            .html((d)=>d.fullName)
+
+
+            // After the park dots have been created, an event listener is added to them
+            document.getElementById("parks-dots").addEventListener("click", (event) =>{
+                event.preventDefault();
+                showParkPage(event.target.id)
             })
     }
 
@@ -199,17 +221,28 @@ export function generateMap(parks){
             }
         }
 
-        
-
         // Adds park name
         d3.select("#park-name").html(`${showPark.fullName}`)
+
+        // Adds park description
         d3.select(".description p").html(`${showPark.description}`)
+
+        let node = document.querySelector(".activities-ul")
+        for (let i = 0; i < showPark.activities.length;i++){
+            let activity = document.createElement("li")
+            activity.innerHTML = showPark.activities[i].name
+            node.appendChild(activity);
+        }
+
 
         // Flickr_URL
         let flickrURL = 
             `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e19ad1e0c6bf594b6f00d76788a2ad44&format=json&nojsoncallback=1&text=${showPark.fullName}&extras=url_o`
         
+        // Setting Google Maps location
+        document.getElementById("parks-maps").src  = `https://www.google.com/maps/embed/v1/place?key=AIzaSyD4MfnERKAJsAGVZVESAGKtLS7M3xm29_c&q=${showPark.fullName}+${showPark.states}`
 
+        // Populating the images
         fetch(flickrURL)
             .then(res => res.json())
             .then(images => images.photos.photo)
@@ -218,9 +251,7 @@ export function generateMap(parks){
                 removeAllChildNodes("small-images")
                 for(let i = 0; i < 10; i++){
                     let image = document.createElement("img")
-                    console.log(images[i].url_o)
                     image.src = `${images[i].url_o}`;
-                    console.log(image)
                     lightbox.appendChild(image)
                 }
                 console.log(lightbox)
@@ -229,6 +260,8 @@ export function generateMap(parks){
                 d3.select(".parks-sidebar-search").style('display','none')
                 d3.select(".park-showpage").style('display','block')
             })
+
+        
 
     }
 

@@ -87,7 +87,21 @@ body {
     /* color: red; */
     fill: green;
 }
+
+.tooltiptext {
+    visibility: hidden;
+    color: red;
+    position: relative;
+}
 .parks:hover {
     /* color: red; */
     fill: yellow;
+
+    .tooltiptext {
+        visibility: visible;
+        z-index: 1000;
+        
+    }
 }
+
+
