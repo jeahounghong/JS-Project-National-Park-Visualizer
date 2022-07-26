@@ -131,7 +131,9 @@ body {
   /* color: red; */
   fill: green;
   z-index: 100;
+  opacity: 80%;
 }
+
 .tooltiptext {
   visibility: hidden;
   color: red;
@@ -376,7 +378,7 @@ body {
   display: none;
   position: fixed;
   z-index: 1;
-  padding-top: 100px;
+  padding-top: 50px;
   left: 0;
   top: 0;
   width: 100%;
@@ -421,6 +423,7 @@ body {
   align-items: center;
 }
 .photo-modal-content .main-photo-content .prev a, .photo-modal-content .main-photo-content .next a {
+  font-size: large;
   text-decoration: none;
   color: white;
 }
@@ -517,6 +520,7 @@ body {
 .info-modal-content .title {
   font-size: 30px;
   font-weight: bold;
+  margin-top: 10px;
 }
 .info-modal-content div {
   background-color: #fff4cf;

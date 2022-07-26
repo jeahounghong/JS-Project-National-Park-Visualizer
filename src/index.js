@@ -5,20 +5,47 @@ const Lightbox = require('./scripts/parksLightbox')
 
 
 let parks;
-
+let searchedParks;
 
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    document.getElementById("info-button").addEventListener("click",(event)=>{
+    /*
+        Information Modal Event Listeners
+    */
+    {
+        // Open Information Modal
+        document.getElementById("info-button").addEventListener("click",(event)=>{
+            event.preventDefault();
+            console.log("hi")
+            document.getElementsByClassName("info-modal")[0].style.display = "block";
+        })
+        
+        // 'X' out of Information Modal
+        document.getElementsByClassName("close-info")[0].addEventListener("click",(event)=>{
+            event.preventDefault();
+            document.getElementsByClassName("info-modal")[0].style.display = "none";
+        })
+
+        // 'X' out of Information Modal if the black backdrop is clicked
+        document.getElementsByClassName("info-position")[0].addEventListener("click",(event)=>{
+            event.preventDefault()
+            event.stopPropagation();
+            if (event.target === event.currentTarget){
+                document.getElementsByClassName("info-modal")[0].style.display = "none";
+            }
+        })
+
+    }
+
+    document.querySelector(".search-container form").addEventListener("submit",(event)=>{
         event.preventDefault();
-        console.log("hi")
-        document.getElementsByClassName("info-modal")[0].style.display = "block";
-    })
-    
-    document.getElementsByClassName("close-info")[0].addEventListener("click",(event)=>{
-        event.preventDefault();
-        document.getElementsByClassName("info-modal")[0].style.display = "none";
+        let searchTerm = event.target.elements[0].value
+        console.log(searchTerm)
+        fetch(`https://developer.nps.gov/api/v1/parks?limit=467&q=${searchTerm}&api_key=P3sQ0KIWhYmCMsDJp5VDzLSAAOvDY0X7psUzGTMN`)
+            .then(res => res.json())
+            .then(res => searchedParks = res.data)
+            .then(() => {updatesParkListBySearch(searchedParks)})
     })
 
     fetch('https://developer.nps.gov/api/v1/parks?limit=467&api_key=P3sQ0KIWhYmCMsDJp5VDzLSAAOvDY0X7psUzGTMN')
@@ -27,6 +54,23 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(populateMap)
         .then(populateAllParks)
 })
+
+function updatesParkListBySearch(parkSubset){
+    let idList = [];
+    parkSubset.forEach((park) =>{
+        idList.push(park.id)
+    })
+    let parkScroll = document.getElementById("parks_ul");
+    for(let i = 0; i < parkScroll.children.length; i++){
+        let parkListElement = parkScroll.children[i];
+        if (idList.includes(parkListElement.data)){
+            parkListElement.style.display = "block"
+        } else {
+            parkListElement.style.display = "none"
+        }
+    }
+    // console.log("hello")
+}
 
 function populateMap(){
     US_MAP.generateMap(parks, Lightbox);
@@ -65,7 +109,6 @@ function populateAllParks(){
             let parkRadius = document.querySelector(".location").innerHTML.includes("United States of America") ? 2 : 1;
             parkDot.setAttribute("r", parkRadius)
             parkDot.style.zIndex = 500
-            // console.log(parkDot)
         }
     })
 }

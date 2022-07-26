@@ -31,7 +31,7 @@
         </div>
         <div class="search_questions">
             <div class="search-container">
-                <form action="/action_page.php">
+                <form>
                   <input type="text" placeholder="Search.." name="search">
                   <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
@@ -45,8 +45,17 @@
                 <p class="close-info">✖</p>
                 <div class="info-position">
                     <div class="info-modal-content">
-                        <p class="title">National Park Visualizer</p>
+                        <p class="title">
+                            <i class="fa fa-star" aria-hidden="true"></i>    
+                            <i class="fa fa-star" aria-hidden="true"></i>    
+                            <i class="fa fa-star" aria-hidden="true"></i>    
+                            National Park Visualizer
+                            <i class="fa fa-star" aria-hidden="true"></i>    
+                            <i class="fa fa-star" aria-hidden="true"></i>    
+                            <i class="fa fa-star" aria-hidden="true"></i>    
+                        </p>
 
+                        <!-- Description Div -->
                         <div>
                             <h2>Description:</h2>
                             <p>The National Park Visualizer is a tool created using primarily the National Parks Service API as well as D3 Geo, Flickr API, and Google Maps Api. The application is comprised of four main components:</p>
@@ -58,6 +67,7 @@
                             </ol>
                         </div>
 
+                        <!-- Interactive Map Div -->
                         <div>
                             <h2>The Interactive Map:</h2>
                             <img src="assets/interactive_map.png" alt="">
@@ -66,13 +76,31 @@
                             </p>
                         </div>
 
+                        <!-- Parks Filter Div -->
                         <div>
-                            <h2>The Parks Filter</h2>
-
+                            <h2>The Parks Filter:</h2>
+                            <!-- <img src="" alt="">  -->
                             <p>
                                 The parks filter allows one to select for parks based on different metrics such as activities, hours, fee/no fee, and state. Searching by filter will narrow down the parks list to only those parks which meet all of the criteria. 
                             </p>
                         </div>
+
+                        <div>
+                            <h2>The Parks List:</h2>
+
+                            <p>
+                                The parks list will at first contain a scrollable list of all 467 national park (minus those not on the 50 states or DC). The interactive and the parks filter can both be used to query parks that meet a specific criteria. Clicking on a park within the parks list will lead to the parks show page opening up for that respective park. 
+                            </p>
+                        </div>
+
+                        <div>
+                            <h2>The Parks Showpage:</h2>
+
+                            <p>
+                                The parks show page is where you will find all of the information about a park! The scrollable images, sourced from both the NPS API and Flickr API, can be clicked to view the large full resolution images in a gallery. After, you will find information about the park such as a brief synopsis, operating hours, activities, and a embedded map to view the park. If you would like to learn more about the specific park, the park title itself is a link that will take you to the park's website. 
+                            </p>
+                        </div>
+
                     </div>
                 </div>
             </div>

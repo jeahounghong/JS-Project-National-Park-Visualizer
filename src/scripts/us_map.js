@@ -6,7 +6,10 @@ export function generateMap(parks, Lightbox){
     // var *state_features*: holds a key value pair for the state name and the feature that will be passed 
     //                       into the clicked function
     let states_features = {};
+    let currentParkId;
 
+
+   
     // var *idToStates* holds the key value pairs of the US topojson id's to their respective states
     const idToStates = {
         1: "AL", 2: "AK", 3: "AR", 4: "AZ", 5: "AR", 6: "CA", 7: "CT", 8: "CO", 9: "CT", 10: "DE",
@@ -16,7 +19,8 @@ export function generateMap(parks, Lightbox){
         38: "ND", 39: "OH", 40: "OK", 41: "OR", 42: "PA", 43: "TN", 44: "RI", 45: "SC", 46: "SD",
         47: "TN", 48: "TX", 49: "UT", 50: "VT", 51: "VA", 53: "WA", 54: "WV", 55: "WI" , 56: "UT"  
     }
-
+    
+    // var *AbToState* takes an abbreviation and converts it to the full state name
     const AbToState = {
         "AL": "Alabama", "AK": "Alaska", "AR": "Arkansas", "AZ": "Arizona", "CA": "California",
         "CT": "Connecticut", "CO": "Colorado", "DE": "Delaware", "GA": "Georgia", "FL": "Florida",
@@ -29,8 +33,7 @@ export function generateMap(parks, Lightbox){
         "SD": "South Dakota", "TX": "Texas", "UT": "Utah", "VT": "Vermont", "VA": "Virginia", "WA": "Washington",
         "WV": "West Virginia", "WI": "Wisconsin"
     }
-
-    
+   
     document.addEventListener('submit', (event)=>{
         event.preventDefault();
         let state = document.getElementById("state_select").value;
@@ -39,9 +42,6 @@ export function generateMap(parks, Lightbox){
         for(let i = 0; i < activitiesForm.children.length; i++){
             activities[activitiesForm.children[i].children[0].value] = activitiesForm.children[i].children[0].checked
         }
-        console.log(activities)
-        
-        // let statePath = document.getElementById(state);
         zoomToState(state);
     })
 
@@ -61,9 +61,9 @@ export function generateMap(parks, Lightbox){
     })
 
     /*
-        Handling photo lightbox modals
+        Event Listeners for Photo Lightbox Modal
     */
-    {
+    { // Handling photo lightbox modals
         document.querySelector(".small-images").addEventListener("click", (event)=>{
             event.preventDefault();
             console.log(event.target)
@@ -71,10 +71,32 @@ export function generateMap(parks, Lightbox){
             Lightbox.currentSlide(event.target)
         })
         
-        document.querySelector(".close-button").addEventListener("click",(event)=>{
-            event.preventDefault();
-            Lightbox.closeModal();
-        })
+        /*
+            Handling ways to close to photo lightbox modal
+        */
+        {
+            // Explicitly slicking the "close" icon
+            document.querySelector(".close-button").addEventListener("click",(event)=>{
+                event.preventDefault();
+                Lightbox.closeModal();
+            })
+
+            // Clicking on black backdrop to close the modal
+            document.getElementsByClassName("photo-modal-content")[0].addEventListener("click",(event)=>{
+                event.preventDefault()
+                event.stopPropagation();
+                if (event.target === event.currentTarget){
+                    Lightbox.closeModal();
+                }
+            })
+            document.getElementById("photoModal").addEventListener("click",(event)=>{
+                event.preventDefault()
+                event.stopPropagation();
+                if (event.target === event.currentTarget){
+                    Lightbox.closeModal();
+                }
+            })
+        }
 
         document.querySelector(".modal-image-previews").addEventListener("click", (event)=>{
             event.preventDefault();
@@ -110,9 +132,6 @@ export function generateMap(parks, Lightbox){
             }
         })
     }
-
-
-
 
     var margin = {
         // top: 10,
@@ -188,7 +207,7 @@ export function generateMap(parks, Lightbox){
                     return `${d.id}`
                 }
             })
-            .on("click", clicked);
+            .on("click",clicked);
 
         console.log(states_features)
 
@@ -231,19 +250,53 @@ export function generateMap(parks, Lightbox){
             // After the park dots have been created, an event listener is added to them
             document.getElementById("parks-dots").addEventListener("click", (event) =>{
                 event.preventDefault();
+                event.stopPropagation();
                 showParkPage(event.target.id)
             })
+
+            document.getElementById("parks-dots").addEventListener("mouseover", (event)=>{
+                event.preventDefault();
+                let parkDot = event.target;
+                parkDot.remove();
+                document.getElementById("parks-dots").appendChild(parkDot);
+
+                parkDot.style.fill = "yellow";
+                let selectedParkRadius = document.querySelector(".location").innerHTML.includes("United States of America") ? 6 : 3;
+                parkDot.setAttribute("r", selectedParkRadius)
+                parkDot.style.zIndex = 10000
+            })
+            document.getElementById("parks-dots").addEventListener("mouseout", (event)=>{
+                event.preventDefault();
+                let parkDot = event.target;
+                if (currentParkId === parkDot.id){
+                    makeDotRed(parkDot);
+                } else{
+                    parkDot.style.fill = "green";
+                    let parkRadius = document.querySelector(".location").innerHTML.includes("United States of America") ? 2 : 1;
+                    parkDot.setAttribute("r", parkRadius)
+                    parkDot.style.zIndex = 500
+                }
+            })
+
     }
 
     function clicked(d) {
-        // console.log(d)
+        console.log("click!")
         currentState = idToStates[d.id];
         updatesParksList(currentState);
         d3.selectAll('.parks').attr("r",1)
         d3.select('.location').html(`You are currently viewing: ${AbToState[currentState]}`)
 
-        if (d3.select('.background').node() === this) return reset();
-        if (active.node() === this) return reset();
+        if (d3.select('.background').node() === this){
+            // console.log(d3.select('.background'))
+            // console.log(d3.select('.background').node())
+            return reset();  
+        } 
+        // if (active.node() === this) {
+        //     console.log(active)
+        //     console.log(active.node())
+        //     return reset()
+        // };
 
         active.classed("active", false);
         active = d3.select(this).classed("active", true);
@@ -270,7 +323,8 @@ export function generateMap(parks, Lightbox){
         } else {
             for(let i =1; i < 60; i++){
                 if (idToStates[i] === state){
-                    clicked(states_features[state])
+                    // clicked(states_features[state])//.bind(document.getElementById(state));
+                    clicked.bind(document.getElementById(state),states_features[state])() //.bind(document.getElementById(state));
                 }
             }
         }
@@ -300,8 +354,7 @@ export function generateMap(parks, Lightbox){
             - park ACTIVITIES
     */
     function showParkPage(park_id) {
-
-
+        currentParkId = park_id;
         // Declares var showPark to show selected park 
         let showPark;
 
@@ -315,17 +368,20 @@ export function generateMap(parks, Lightbox){
             }
         }
         
-        
-        
-        setTimeout(()=>{
-            let parkDot = document.getElementById(showPark.id);
-            parkDot.remove();
-            document.getElementById("parks-dots").appendChild(parkDot);
-            parkDot.style.fill = "#bd2d17";
-            parkDot.setAttribute('r',2);
-        },0)
+        let showParkDot = document.getElementById(showPark.id);
+        setTimeout(function(){
+            makeDotRed(showParkDot)
+        },500)
+        // setTimeout((parkDot)=>{
+        //     let parkDot = 
+        //     parkDot.remove();
+        //     document.getElementById("parks-dots").appendChild(parkDot);
+        //     parkDot.style.fill = "#bd2d17";
+        //     parkDot.setAttribute('r',2);
+        // },500)
 
         // Zoom to appropriate state
+        // if ()
         zoomToState(showPark.states)
 
         // Adds park name
@@ -422,6 +478,13 @@ export function generateMap(parks, Lightbox){
         }
     }
 
+    function makeDotRed(parkDot){
+        parkDot.remove();
+        document.getElementById("parks-dots").appendChild(parkDot);
+        parkDot.style.fill = "#bd2d17";
+        parkDot.setAttribute('r',2);
+    }
+
     // function drawParksByState(stateId){
     //     g.append("g")
     //         .selectAll("path")
@@ -455,10 +518,12 @@ export function generateMap(parks, Lightbox){
 
 
     function reset() {
+
+        d3.select(".parks-sidebar-search").style('display','block')
+        d3.select(".park-showpage").style('display','none')
         d3.selectAll('.parks').attr("r",2)
         d3.selectAll('.parks').style("fill","green")
         updatesParksList("any");
-        // ZoomedIn = false;
         currentState = "United States of America"
         d3.select('.location').html(`You are currently viewing: ${currentState}`)
         active.classed("active", false);
