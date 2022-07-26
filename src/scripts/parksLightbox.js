@@ -5,6 +5,7 @@ const ParksLightbox = {
     },
 
     closeModal: function(){
+      console.log("close")
         document.getElementById("photoModal").style.display = "none";
     },
 

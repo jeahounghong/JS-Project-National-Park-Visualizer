@@ -39,10 +39,11 @@
 
     .main-photo-content {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
+        width: 1100px;
         .prev,.next {
-            width: 40px;
+            width: 50px;
             height: 100px;
             background-color: rgba($color: black, $alpha: 0.0);
             display: flex;
@@ -52,7 +53,6 @@
                 text-decoration: none;
                 color: white;
             }
-
         }
         
         .prev:hover,.next:hover {
@@ -67,12 +67,12 @@
         
     }
     img:first-of-type {
-        max-height: 500px;
+        max-height: 700px;
         max-width: 1000px;
     }
 
     .modal-image-previews{
-        max-width: 1000px;
+        max-width: 1100px;
         display: inline-block;
         overflow-x: auto;
         white-space: nowrap;

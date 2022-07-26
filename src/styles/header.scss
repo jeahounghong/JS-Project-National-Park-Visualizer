@@ -39,10 +39,18 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        > button, form {
+        > i, form {
+            margin-right: 10px;
+        }
+        #info-button {
+            font-size: 25px;
+            color: #fff4cf;
             margin-right: 30px;
         }
 
+        #info-button:hover {
+            cursor: pointer;
+        }
     }
 
     .personal_links{

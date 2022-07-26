@@ -1,13 +1,26 @@
-const ParksAPI = require('./scripts/parksAPI');
+// const ParksAPI = require('./scripts/parksAPI');
 // ParksAPI.data();
 const US_MAP = require('./scripts/us_map')
 const Lightbox = require('./scripts/parksLightbox')
-// Lightbox.openModal()
+
 
 let parks;
-// fetch('https://developer.nps.gov/api/v1/parks?limit=467&api_key=P3sQ0KIWhYmCMsDJp5VDzLSAAOvDY0X7psUzGTMN')
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    document.getElementById("info-button").addEventListener("click",(event)=>{
+        event.preventDefault();
+        console.log("hi")
+        document.getElementsByClassName("info-modal")[0].style.display = "block";
+    })
+    
+    document.getElementsByClassName("close-info")[0].addEventListener("click",(event)=>{
+        event.preventDefault();
+        document.getElementsByClassName("info-modal")[0].style.display = "none";
+    })
+
     fetch('https://developer.nps.gov/api/v1/parks?limit=467&api_key=P3sQ0KIWhYmCMsDJp5VDzLSAAOvDY0X7psUzGTMN')
         .then(res => res.json())
         .then(res => parks = res.data)
@@ -18,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
 function populateMap(){
     US_MAP.generateMap(parks, Lightbox);
     console.log(parks)
-    // console.log(Object.keys(parks));
 }
 
 function populateAllParks(){
