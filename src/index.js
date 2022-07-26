@@ -1,7 +1,8 @@
-// const ParksAPI = require('./parksAPI');
+const ParksAPI = require('./scripts/parksAPI');
+// ParksAPI.data();
 const US_MAP = require('./scripts/us_map')
 const Lightbox = require('./scripts/parksLightbox')
-
+// Lightbox.openModal()
 
 let parks;
 // fetch('https://developer.nps.gov/api/v1/parks?limit=467&api_key=P3sQ0KIWhYmCMsDJp5VDzLSAAOvDY0X7psUzGTMN')
@@ -15,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 function populateMap(){
-    US_MAP.generateMap(parks);
+    US_MAP.generateMap(parks, Lightbox);
     console.log(parks)
     // console.log(Object.keys(parks));
 }
@@ -33,8 +34,11 @@ function populateAllParks(){
     parks_list.addEventListener('mouseover', (event) => {
         event.preventDefault();
         if (event.target.data){
-            let parkDot = document.getElementById(event.target.data)
-            parkDot.style.fill = "yellow"
+            let parkDot = document.getElementById(event.target.data);
+            parkDot.remove();
+            document.getElementById("parks-dots").appendChild(parkDot);
+
+            parkDot.style.fill = "yellow";
             let selectedParkRadius = document.querySelector(".location").innerHTML.includes("United States of America") ? 6 : 3;
             parkDot.setAttribute("r", selectedParkRadius)
             parkDot.style.zIndex = 10000

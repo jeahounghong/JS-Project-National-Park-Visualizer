@@ -130,8 +130,8 @@ body {
 .parks {
   /* color: red; */
   fill: green;
+  z-index: 100;
 }
-
 .tooltiptext {
   visibility: hidden;
   color: red;
@@ -362,4 +362,95 @@ body {
   background-color: blue;
   border-radius: 50%;
   overflow: hidden;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.close-button {
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close-button:hover, .close:focus {
+  color: rgb(193, 193, 193);
+  cursor: pointer;
+}
+
+.photo-modal-content {
+  background-color: rgba(0, 0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.photo-modal-content .main-photo-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.photo-modal-content .main-photo-content .prev, .photo-modal-content .main-photo-content .next {
+  width: 40px;
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.photo-modal-content .main-photo-content .prev a, .photo-modal-content .main-photo-content .next a {
+  text-decoration: none;
+  color: white;
+}
+.photo-modal-content .main-photo-content .prev:hover, .photo-modal-content .main-photo-content .next:hover {
+  background-color: gray;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.photo-modal-content #photo-caption {
+  font-size: 20px;
+  padding-top: 10px;
+}
+.photo-modal-content img:first-of-type {
+  max-height: 500px;
+  max-width: 1000px;
+}
+.photo-modal-content .modal-image-previews {
+  max-width: 1000px;
+  display: inline-block;
+  overflow-x: auto;
+  white-space: nowrap;
+  overflow-y: hidden;
+}
+.photo-modal-content .modal-image-previews img {
+  height: 100px;
+  padding-right: 3px;
+}
+.photo-modal-content .modal-image-previews img:last-of-type {
+  padding-right: 0px;
+}
+.photo-modal-content .modal-image-previews:hover {
+  transition: 0.3s;
+}
+.photo-modal-content .modal-image-previews:hover img {
+  filter: brightness(50%);
+  border: solid 3px rgba(0, 0, 0, 0);
+}
+.photo-modal-content .modal-image-previews:hover img:hover {
+  filter: brightness(100%);
+  border: none;
+  transition: 0.3s;
 }

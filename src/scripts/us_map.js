@@ -1,4 +1,4 @@
-export function generateMap(parks){
+export function generateMap(parks, Lightbox){
 
     // var *currentState*: will be responsible for the location displayed beneath the map
     let currentState = "United States of America"
@@ -58,8 +58,61 @@ export function generateMap(parks){
         d3.select(".parks-sidebar-search").style('display','block')
         d3.select(".park-showpage").style('display','none')
         reset();
-
     })
+
+    /*
+        Handling photo lightbox modals
+    */
+    {
+        document.querySelector(".small-images").addEventListener("click", (event)=>{
+            event.preventDefault();
+            console.log(event.target)
+            Lightbox.openModal();
+            Lightbox.currentSlide(event.target)
+        })
+        
+        document.querySelector(".close-button").addEventListener("click",(event)=>{
+            event.preventDefault();
+            Lightbox.closeModal();
+        })
+
+        document.querySelector(".modal-image-previews").addEventListener("click", (event)=>{
+            event.preventDefault();
+            if (event.target){
+                console.log(event.target.src)
+                document.getElementById("main-modal-image").src = event.target.src;
+            }
+        })
+
+        document.querySelector(".prev").addEventListener("click",(event)=>{
+            let currentSource = document.getElementById("main-modal-image").src;
+            let modalPreviews = document.getElementsByClassName("modal-image-previews")[0].children
+            for(let i = 0; i < modalPreviews.length; i++){
+                if (modalPreviews[i].src === currentSource){
+                    if (i === 0){
+                        document.getElementById("main-modal-image").src = modalPreviews[modalPreviews.length-1].src
+                    } else {
+                        document.getElementById("main-modal-image").src = modalPreviews[i-1].src
+                    }
+
+                }
+            }
+        })
+
+        document.querySelector(".next").addEventListener("click",(event)=>{
+            let currentSource = document.getElementById("main-modal-image").src;
+            let modalPreviews = document.getElementsByClassName("modal-image-previews")[0].children
+            for(let i = 0; i < modalPreviews.length; i++){
+                if (modalPreviews[i].src === currentSource){
+                    let new_idx = (i + 1) % modalPreviews.length;
+                    document.getElementById("main-modal-image").src = modalPreviews[new_idx].src
+                }
+            }
+        })
+    }
+
+
+
 
     var margin = {
         // top: 10,
@@ -254,17 +307,26 @@ export function generateMap(parks){
 
         // Search for park from parks
         for(let i = 0; i < 467; i++){
+            document.getElementById(parks[i].id).style.fill = "green"
+            document.getElementById(parks[i].id).setAttribute('r',1)
+
             if (parks[i].id === park_id){
                 showPark = parks[i]
             }
         }
-
-        let parkDot = document.getElementById(showPark.id)
-        // console.log(parkDot)
+        
+        
+        
+        setTimeout(()=>{
+            let parkDot = document.getElementById(showPark.id);
+            parkDot.remove();
+            document.getElementById("parks-dots").appendChild(parkDot);
+            parkDot.style.fill = "#bd2d17";
+            parkDot.setAttribute('r',2);
+        },0)
 
         // Zoom to appropriate state
         zoomToState(showPark.states)
-
 
         // Adds park name
         d3.select("#park-name").html(`${showPark.fullName}`)
@@ -276,7 +338,6 @@ export function generateMap(parks){
         // Adds the Operating Hours
         removeAllChildNodes("hoursOfOp-ul")
         let node1 = document.querySelector(".hoursOfOp-ul")
-        console.log(node1)
         for (let i = 0; i < showPark.operatingHours.length; i++){
             let descriptionOfHours = document.createElement("li")
             descriptionOfHours.innerHTML = showPark.operatingHours[i].description
@@ -292,38 +353,53 @@ export function generateMap(parks){
             node.appendChild(activity);
         }
 
+        // Setting Google Maps location
+        document.getElementById("parks-maps").src  = `https://www.google.com/maps/embed/v1/place?key=AIzaSyD4MfnERKAJsAGVZVESAGKtLS7M3xm29_c&q=${showPark.fullName}+${showPark.states}`
+
         // Flickr_URL
         let flickrURL = 
             `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e19ad1e0c6bf594b6f00d76788a2ad44&format=json&nojsoncallback=1&text=${showPark.fullName}&extras=url_o`
         
-        // Setting Google Maps location
-        document.getElementById("parks-maps").src  = `https://www.google.com/maps/embed/v1/place?key=AIzaSyD4MfnERKAJsAGVZVESAGKtLS7M3xm29_c&q=${showPark.fullName}+${showPark.states}`
+        // Prepares the image list and modal images by removing all children
+        removeAllChildNodes("small-images")
+        removeAllChildNodes("modal-image-previews")
+        let lightbox = document.querySelector(".small-images");
+        let modal = document.getElementsByClassName("modal-image-previews")[0];
+        let count = 0;
 
+        for (let i = 0; i < showPark.images.length;i ++){
+            count += 1;
+            let image = document.createElement("img");
+            image.src = showPark.images[i].url;
+            image.loading = 'lazy';
+            lightbox.appendChild(image);
+            // modal.appendChild(image);
+        }
+        for (let i = 0; i < showPark.images.length;i ++){
+            // count += 1;
+            let image = document.createElement("img");
+            image.src = showPark.images[i].url;
+            image.loading = 'lazy';
+            // lightbox.appendChild(image);
+            modal.appendChild(image);
+        }
+        
         // Populating the images
         fetch(flickrURL)
             .then(res => res.json())
             .then(images => images.photos.photo)
             .then((images) => {
-                let lightbox = document.querySelector(".small-images")
-                let count = 0;
-                removeAllChildNodes("small-images")
-
-                for (let i = 0; i < showPark.images.length;i ++){
-                    let image = document.createElement("img");
-                    image.src = showPark.images[i].url;
-                    image.loading = 'lazy';
-                    lightbox.appendChild(image)
-                }
 
                 for(let i = 0; i < 10; i++){
                     if (images[i].url_o){
+                        count += 1  
                         let image = document.createElement("img")
                         image.src = `${images[i].url_o}`;
                         image.loading = "lazy"
                         lightbox.appendChild(image)
+                        modal.appendChild(image)
                     }
                 }
-                console.log(lightbox)
             }).then(()=>{
                 // Clears out search-bar and renders parks showpage
                 d3.select(".parks-sidebar-search").style('display','none')
@@ -380,6 +456,7 @@ export function generateMap(parks){
 
     function reset() {
         d3.selectAll('.parks').attr("r",2)
+        d3.selectAll('.parks').style("fill","green")
         updatesParksList("any");
         // ZoomedIn = false;
         currentState = "United States of America"
