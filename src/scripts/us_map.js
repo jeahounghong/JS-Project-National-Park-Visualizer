@@ -471,11 +471,11 @@ export function generateMap(parks, Lightbox){
         document.querySelector(".park-name-box").addEventListener("mouseenter", ()=>{
             console.log("hi")
             // document.querySelector(".park-name-box").scrollLeft += 20
-            idx = setInterval(() => document.querySelector(".park-name-box").scrollLeft += 3, 15);
+            idx = setInterval(() => document.querySelector(".park-name-box").scrollLeft += 3, 30);
         })
         document.querySelector(".park-name-box").addEventListener("mouseleave", ()=>{
             console.log("bye")
-            document.querySelector(".park-name-box").scrollLeft -= 400
+            document.querySelector(".park-name-box").scrollLeft -= 300
             clearInterval(idx)
             // idx = setInterval(() => document.querySelector(".park-name-box").scrollLeft += 1, 10);
         })
@@ -522,12 +522,21 @@ export function generateMap(parks, Lightbox){
             node.appendChild(activity);
         }
 
+        
+        let searchName = ""
+        for(let i = 0; i < showPark.fullName.length; i++){
+            if (showPark.fullName[i] === "&"){
+                searchName += "and"
+            } else {
+                searchName += showPark.fullName[i]
+            }
+        }
         // Setting Google Maps location
-        document.getElementById("parks-maps").src  = `https://www.google.com/maps/embed/v1/place?key=AIzaSyD4MfnERKAJsAGVZVESAGKtLS7M3xm29_c&q=${showPark.fullName}+${showPark.states}`
+        document.getElementById("parks-maps").src  = `https://www.google.com/maps/embed/v1/place?key=AIzaSyD4MfnERKAJsAGVZVESAGKtLS7M3xm29_c&q=${searchName}+${showPark.states}`
 
         // Flickr_URL
         let flickrURL = 
-            `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e19ad1e0c6bf594b6f00d76788a2ad44&format=json&nojsoncallback=1&text=${showPark.fullName}&extras=url_o`
+            `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e19ad1e0c6bf594b6f00d76788a2ad44&format=json&nojsoncallback=1&text=${searchName}&extras=url_o`
         
         // Prepares the image list and modal images by removing all children
         removeAllChildNodes("small-images")

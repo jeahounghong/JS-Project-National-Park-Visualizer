@@ -197,7 +197,13 @@ body {
   vertical-align: center;
   height: 30px;
 }
+.top_header .search_questions button {
+  border-radius: 7px;
+  height: 30px;
+  width: 30px;
+}
 .top_header .search_questions i {
+  padding-top: 3px;
   border-radius: 7px;
 }
 .top_header .search_questions input {
@@ -450,6 +456,9 @@ body {
   background-color: blue;
   border-radius: 50%;
   overflow: hidden;
+}
+.parks_sidebar .park-showpage .park-scroll iframe {
+  border-radius: 15px;
 }
 
 .modal {
