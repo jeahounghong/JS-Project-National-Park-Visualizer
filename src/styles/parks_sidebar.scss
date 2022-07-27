@@ -78,10 +78,33 @@
             }
     
             #activities {
-                display: flex;
+                display: flex-wrap;
                 flex-direction: column;
                 flex-wrap: wrap;
-                height: 65px;
+                justify-content: space-between;
+                height: 80px;
+
+                label{
+                    border: solid 3px #377040;
+                    border-radius: 10px;
+                    padding: 5px;
+                    background-color: #fff4cf;
+                    input {
+                        display: none;
+                    }
+                }
+                label:hover {
+                    background-color: #d0c7a8;
+                }
+            }
+
+            select {
+                height: 30px;
+                border-radius: 5px;
+                background-color: #377040;
+                color: #fff4cf;
+                text-align: center;
+                font-weight: normal;
             }
             margin-bottom: 10px;
         }

@@ -52,6 +52,21 @@ document.addEventListener("DOMContentLoaded", () => {
         },0)
     })
 
+    document.getElementById("activities").addEventListener("click",(event)=>{
+        // event.preventDefault();
+        event.stopPropagation();
+        setTimeout(()=>{
+            console.log(event.target.children[0])
+            let selected = event.target.children[0].checked
+            if (selected){
+                event.target.style.backgroundColor = "#d0c7a8"
+            } else {
+                event.target.style.backgroundColor = "#fff4cf"
+            }
+            console.log(selected);
+        },1)
+    })
+
     document.querySelector(".search-container form").addEventListener("submit",(event)=>{
         event.preventDefault();
         let searchTerm = event.target.elements[0].value
