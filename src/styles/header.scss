@@ -15,7 +15,7 @@
     align-items: center;
     background-color: #377040;
     margin: none;
-    height: 60px;
+    min-height: 60px;
 
     .main_title {
         color: #fff4cf;
@@ -28,7 +28,9 @@
             padding-top: 17px;
             text-decoration: none;
             color: #fff4cf;
-            font-size: 25px;
+            font-size: 35px;
+            font-weight: bold;
+            text-shadow: 3px 3px #777260 ;
         } 
         * {
             padding: 10px;
@@ -38,9 +40,22 @@
     .search_questions {
         display: flex;
         flex-direction: row;
-        align-items: center;
+        // align-items: center;
+
         > i, form {
             margin-right: 10px;
+            padding: 0px;
+            vertical-align: center;
+            height: 30px;
+        }
+
+        i {
+            border-radius: 7px;
+        }
+        input{
+            border-radius: 7px;
+            background-color: #fff4cf;
+            padding: 3px;
         }
         #info-button {
             font-size: 25px;
@@ -50,10 +65,13 @@
 
         #info-button:hover {
             cursor: pointer;
+            color:#777260 ;
+            transition: 0.3s;
         }
     }
 
     .personal_links{
+        font-size: 20px;
         // background-color: yellow;
         display: flex;
         flex-direction: row;

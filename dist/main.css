@@ -96,7 +96,6 @@ body {
 }
 
 .viz {
-  border: solid 1px black;
   background-color: rgba(255, 244, 207, 0.9);
   fill: none;
   width: 1000px;
@@ -106,7 +105,6 @@ body {
 }
 .viz svg {
   border-radius: 15px;
-  border: solid 1px black;
 }
 .viz svg .heavy {
   fill: black;
@@ -125,11 +123,14 @@ body {
 .location-viewer .location {
   font-family: "Rockwell";
   color: #fff4cf;
-  font-size: 30px;
+  font-size: 25px;
   padding: 10px;
   vertical-align: center;
   text-align: center;
   padding-top: 15px;
+}
+.location-viewer .location span {
+  font-weight: bold;
 }
 
 .parks {
@@ -163,7 +164,7 @@ body {
   align-items: center;
   background-color: #377040;
   margin: none;
-  height: 60px;
+  min-height: 60px;
 }
 .top_header .main_title {
   color: #fff4cf;
@@ -177,7 +178,9 @@ body {
   padding-top: 17px;
   text-decoration: none;
   color: #fff4cf;
-  font-size: 25px;
+  font-size: 35px;
+  font-weight: bold;
+  text-shadow: 3px 3px #777260;
 }
 .top_header .main_title * {
   padding: 10px;
@@ -185,10 +188,20 @@ body {
 .top_header .search_questions {
   display: flex;
   flex-direction: row;
-  align-items: center;
 }
 .top_header .search_questions > i, .top_header .search_questions form {
   margin-right: 10px;
+  padding: 0px;
+  vertical-align: center;
+  height: 30px;
+}
+.top_header .search_questions i {
+  border-radius: 7px;
+}
+.top_header .search_questions input {
+  border-radius: 7px;
+  background-color: #fff4cf;
+  padding: 3px;
 }
 .top_header .search_questions #info-button {
   font-size: 25px;
@@ -197,8 +210,11 @@ body {
 }
 .top_header .search_questions #info-button:hover {
   cursor: pointer;
+  color: #777260;
+  transition: 0.3s;
 }
 .top_header .personal_links {
+  font-size: 20px;
   display: flex;
   flex-direction: row;
   width: 300px;
@@ -304,6 +320,13 @@ body {
   border: solid 3px #377040;
   border-radius: 10px;
   padding: 5px;
+  background-color: #fff4cf;
+  cursor: pointer;
+  text-align: center;
+  width: 63px;
+}
+.parks_sidebar .parks-sidebar-search #filterForm #daysOpen label input {
+  display: none;
 }
 .parks_sidebar .parks-sidebar-search #filterForm #daysOpen label:hover {
   background-color: #d0c7a8;
@@ -328,7 +351,7 @@ body {
 }
 .parks_sidebar .park-showpage .park-scroll {
   overflow-y: scroll;
-  height: 650px;
+  height: 670px;
   border-radius: 15px;
   align-items: center;
 }

@@ -184,7 +184,7 @@ export function generateMap(parks, Lightbox){
     let header = d3.select('.viz').append('div').attr('class','location-viewer')
         .append('div')
         .attr('class','location')
-        .html(`You are currently viewing: ${currentState}`)
+        .html(`You are currently viewing: <span>${currentState}</span>`)
 
     function ready(us) {
         g.append("g")
@@ -308,7 +308,7 @@ export function generateMap(parks, Lightbox){
         currentState = idToStates[d.id];
         updatesParksList(currentState);
         d3.selectAll('.parks').attr("r",1)
-        d3.select('.location').html(`You are currently viewing: ${AbToState[currentState]}`)
+        d3.select('.location').html(`You are currently viewing: <span>${AbToState[currentState]}</span>`)
 
         if (d3.select('.background').node() === this){
             // console.log(d3.select('.background'))
@@ -582,17 +582,18 @@ export function generateMap(parks, Lightbox){
     }
 
     function reset() {
+        console.log(arguments)
         mouseScale = 1;
         mouseTranslate = [0,0]
         d3.select(".parks-sidebar-search").style('display','block')
         d3.select(".park-showpage").style('display','none')
         d3.selectAll('.parks').attr("r",2)
         d3.selectAll('.parks').style("fill","green")
-        if (arguments.length === 0){
+        if (arguments.length === 0 || arguments.length === 3){
             updatesParksList("any");
         }
         currentState = "United States of America"
-        d3.select('.location').html(`You are currently viewing: ${currentState}`)
+        d3.select('.location').html(`You are currently viewing: <span>${currentState}</span>`)
         active.classed("active", false);
         active = d3.select(null);
 

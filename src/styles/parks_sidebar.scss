@@ -107,9 +107,13 @@
                     border: solid 3px #377040;
                     border-radius: 10px;
                     padding: 5px;
-                    // input {
-                    //     display: none;
-                    // }
+                    background-color: #fff4cf;
+                    cursor: pointer;
+                    text-align: center;
+                    width: 63px;
+                    input {
+                        display: none;
+                    }
                 }
                 label:hover {
                     background-color: #d0c7a8;
@@ -154,7 +158,7 @@
 
         .park-scroll{
             overflow-y: scroll;
-            height: 650px;
+            height: 670px;
             border-radius: 15px;
             // display: flex;
             // flex-direction: column;

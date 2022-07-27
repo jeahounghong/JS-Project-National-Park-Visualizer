@@ -47,7 +47,7 @@ body {
 }
 
 .viz {
-    border: solid 1px black;
+    // border: solid 1px black;
     // background-color: #fff4cf;
     background-color: rgba(255, 244, 207, 0.9);
     fill: none;
@@ -58,7 +58,7 @@ body {
     
     svg {
         border-radius: 15px;
-        border: solid 1px black;
+        // border: solid 1px black;
 
         .heavy { 
             // border: solid 2px white;
@@ -84,11 +84,15 @@ body {
         // z-index: 10000;
         font-family: "Rockwell";
         color: #fff4cf;
-        font-size: 30px;
+        font-size: 25px;
         padding: 10px;
         vertical-align: center;
         text-align: center;
         padding-top: 15px;
+
+        span {
+            font-weight: bold;
+        }
     }
 }
 

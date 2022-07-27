@@ -38,6 +38,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+    document.getElementById("daysOpen").addEventListener("click",(event)=>{
+        // event.preventDefault();
+        event.stopPropagation();
+        setTimeout(()=>{
+            let selected = event.target.children[0].checked
+            if (selected){
+                event.target.style.backgroundColor = "#d0c7a8"
+            } else {
+                event.target.style.backgroundColor = "#fff4cf"
+            }
+            console.log(selected);
+        },0)
+    })
+
     document.querySelector(".search-container form").addEventListener("submit",(event)=>{
         event.preventDefault();
         let searchTerm = event.target.elements[0].value
@@ -45,7 +59,12 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(`https://developer.nps.gov/api/v1/parks?limit=467&q=${searchTerm}&api_key=P3sQ0KIWhYmCMsDJp5VDzLSAAOvDY0X7psUzGTMN`)
             .then(res => res.json())
             .then(res => searchedParks = res.data)
-            .then(() => {updatesParkListBySearch(searchedParks)})
+            .then(() => {
+                if (searchedParks.length > 0){
+                    updatesParkListBySearch(searchedParks)
+                } else {
+                }
+            })
 
         event.target.elements[0].value = ""
     })
