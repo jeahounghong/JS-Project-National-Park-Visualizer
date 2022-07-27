@@ -21,3 +21,57 @@ const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Listening at localhost:${PORT}`);
 });
+
+
+// app.js
+app.get("/parksAPI", (request,response) =>{
+  const urlStart = 'https://developer.nps.gov/api/v1/parks?limit=467';
+  const apiKey = process.env.parkAPIKEY;
+  const searchTerm = request.query.searchTerm
+  const url;
+  if (searchTerm){
+    url = `${urlStart}&q=${searchTerm}&api_key=${apiKey}`;
+  } else {
+    url = `${urlStart}&api_key=${apiKey}`;
+  }
+
+  console.log(`Fetching: ${url}`);
+
+  fetch(url) // AJAX request to API
+    .then(apiResponse => apiResponse.json())
+    .then(data => response.send(data))
+    .catch(error => response.send(error));
+});
+
+// index.js
+// fetch(`/parksAPI?searchTerm=${encodeURIComponent(query)}`)
+//   .then(res => searchedParks = res.data)
+//   .then(() => {
+//       if (searchedParks.length > 0){
+//           updatesParkListBySearch(searchedParks)
+//       } else {/*Nothing happens if the results are empty*/}
+//   })
+
+// As it is now in index.js
+// fetch(`https://developer.nps.gov/api/v1/parks?limit=467&q=${searchTerm}&api_key=${process.env.parkAPIKEY}`)
+//             .then(res => res.json())
+//             .then(res => searchedParks = res.data)
+//             .then(() => {
+//                 if (searchedParks.length > 0){
+//                     updatesParkListBySearch(searchedParks)
+//                 } else {/*Nothing happens if the results are empty*/}
+//             })
+
+app.get('/flickrAPI', (request,response) =>{
+  const urlStart = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='
+  const apiKey = process.env.flickrAPIKEY;
+  const searchTerm = request.query.searchTerm;
+  const url = `${urlStart}${apiKey}&format=json&nojsoncallback=1&text=${searchTerm}&extras=url_o`
+
+  console.log(`Fetching: ${url}`)
+
+  fetch(url) // AJAX request to API
+    .then(apiResponse => apiResponse.json())
+    .then(data => response.send(data))
+    .catch(error => response.send(error));
+})

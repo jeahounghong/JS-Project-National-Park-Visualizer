@@ -1,8 +1,8 @@
 // const ParksAPI = require('./scripts/parksAPI');
 // ParksAPI.data();
 const US_MAP = require('./scripts/us_map')
-const Lightbox = require('./scripts/parksLightbox')
-
+const Lightbox = require('./scripts/parksLightbox');
+// const { get } = require('core-js/core/dict');
 
 let parks;
 let searchedParks;
@@ -56,10 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
         let searchTerm = event.target.elements[0].value
         console.log(searchTerm)
-        // fetch(`https://developer.nps.gov/api/v1/parks?limit=467&q=${searchTerm}&api_key=P3sQ0KIWhYmCMsDJp5VDzLSAAOvDY0X7psUzGTMN`)
-        fetch(`https://developer.nps.gov/api/v1/parks?limit=467&q=${searchTerm}&api_key=${process.env.parkAPIKEY}`)
-            .then(res => res.json())
-            .then(res => searchedParks = res.data)
+
+        fetch(`/parksAPI?searchTerm=${encodeURIComponent(query)}`)
+            // .then(res => searchedParks = res.data)
             .then(() => {
                 if (searchedParks.length > 0){
                     updatesParkListBySearch(searchedParks)
@@ -69,11 +68,17 @@ document.addEventListener("DOMContentLoaded", () => {
         event.target.elements[0].value = ""
     })
 
-    fetch(`https://developer.nps.gov/api/v1/parks?limit=467&api_key=${process.env.parkAPIKEY}`)
-        .then(res => res.json())
+    fetch('/parksAPI')
+        // .then(res => res.json())
         .then(res => parks = res.data)
         .then(populateMap)
         .then(populateAllParks)
+
+    // fetch(`https://developer.nps.gov/api/v1/parks?limit=467&api_key=${process.env.parkAPIKEY}`)
+    //     .then(res => res.json())
+    //     .then(res => parks = res.data)
+    //     .then(populateMap)
+    //     .then(populateAllParks)
 })
 
 function updatesParkListBySearch(parkSubset){

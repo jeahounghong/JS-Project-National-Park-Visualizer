@@ -526,8 +526,6 @@ export function generateMap(parks, Lightbox){
         document.getElementById("parks-maps").src  = `https://www.google.com/maps/embed/v1/place?key=AIzaSyD4MfnERKAJsAGVZVESAGKtLS7M3xm29_c&q=${showPark.fullName}+${showPark.states}`
 
         // Flickr_URL
-        let flickrURL = 
-            `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e19ad1e0c6bf594b6f00d76788a2ad44&format=json&nojsoncallback=1&text=${showPark.fullName}&extras=url_o`
         
         // Prepares the image list and modal images by removing all children
         removeAllChildNodes("small-images")
@@ -554,8 +552,7 @@ export function generateMap(parks, Lightbox){
         }
         
         // Populating the images
-        fetch(flickrURL)
-            .then(res => res.json())
+        fetch(`/flickrAPI?searchTerm=${showPark.fullName}`)
             .then(images => images.photos.photo)
             .then((images) => {
 
