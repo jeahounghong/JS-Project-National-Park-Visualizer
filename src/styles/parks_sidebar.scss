@@ -32,7 +32,7 @@
     
             .scrollable_parks_ul {
                 background-color:#fff4cf;
-                height: 330px;
+                height: 267px;
                 overflow-y: scroll;
                 // border: solid 1px black;
                 border-radius: 15px;
@@ -82,7 +82,7 @@
                 flex-direction: column;
                 flex-wrap: wrap;
                 justify-content: space-between;
-                height: 80px;
+                height: 155px;
 
                 label{
                     border: solid 3px #377040;
@@ -94,7 +94,7 @@
                     }
                 }
                 label:hover {
-                    background-color: #d0c7a8;
+                    cursor: pointer;
                 }
             }
 
@@ -137,9 +137,6 @@
                     input {
                         display: none;
                     }
-                }
-                label:hover {
-                    background-color: #d0c7a8;
                 }
             }
         }

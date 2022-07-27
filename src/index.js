@@ -51,20 +51,52 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(selected);
         },0)
     })
-
-    document.getElementById("activities").addEventListener("click",(event)=>{
-        // event.preventDefault();
+    document.getElementById("daysOpen").addEventListener("mouseover",(event)=>{
         event.stopPropagation();
-        setTimeout(()=>{
-            console.log(event.target.children[0])
+        if (event.target.className === "day"){
+            event.target.style.backgroundColor = "#d0c7a8"
+        }
+    })
+    document.getElementById("daysOpen").addEventListener("mouseout",(event)=>{
+        event.stopPropagation();
+        if (event.target.className === "day"){
             let selected = event.target.children[0].checked
             if (selected){
                 event.target.style.backgroundColor = "#d0c7a8"
             } else {
                 event.target.style.backgroundColor = "#fff4cf"
             }
-            console.log(selected);
+        }
+    })
+
+    document.getElementById("activities").addEventListener("click",(event)=>{
+        // event.preventDefault();
+        event.stopPropagation();
+        setTimeout(()=>{
+            let selected = event.target.children[0].checked
+            if (selected){
+                event.target.style.backgroundColor = "#d0c7a8"
+            } else {
+                event.target.style.backgroundColor = "#fff4cf"
+            }
         },1)
+    })
+    document.getElementById("activities").addEventListener("mouseover",(event)=>{
+        event.stopPropagation();
+        if (event.target.className === "act"){
+            event.target.style.backgroundColor = "#d0c7a8"
+        }
+    })
+    document.getElementById("activities").addEventListener("mouseout",(event)=>{
+        event.stopPropagation();
+        if (event.target.className === "act"){
+            let selected = event.target.children[0].checked
+            if (selected){
+                event.target.style.backgroundColor = "#d0c7a8"
+            } else {
+                event.target.style.backgroundColor = "#fff4cf"
+            }
+        }
     })
 
     document.querySelector(".search-container form").addEventListener("submit",(event)=>{
