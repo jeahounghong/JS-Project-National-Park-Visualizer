@@ -43,25 +43,6 @@ app.get("/parksAPI", (request,response) =>{
     .catch(error => response.send(error));
 });
 
-// index.js
-// fetch(`/parksAPI?searchTerm=${encodeURIComponent(query)}`)
-//   .then(res => searchedParks = res.data)
-//   .then(() => {
-//       if (searchedParks.length > 0){
-//           updatesParkListBySearch(searchedParks)
-//       } else {/*Nothing happens if the results are empty*/}
-//   })
-
-// As it is now in index.js
-// fetch(`https://developer.nps.gov/api/v1/parks?limit=467&q=${searchTerm}&api_key=${process.env.parkAPIKEY}`)
-//             .then(res => res.json())
-//             .then(res => searchedParks = res.data)
-//             .then(() => {
-//                 if (searchedParks.length > 0){
-//                     updatesParkListBySearch(searchedParks)
-//                 } else {/*Nothing happens if the results are empty*/}
-//             })
-
 app.get('/flickrAPI', (request,response) =>{
   const urlStart = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='
   const apiKey = process.env.flickrAPIKEY;
