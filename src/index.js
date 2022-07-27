@@ -62,10 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(() => {
                 if (searchedParks.length > 0){
                     updatesParkListBySearch(searchedParks)
-                } else {
-                }
+                } else {/*Nothing happens if the results are empty*/}
             })
-
+        // Clears out the search bar
         event.target.elements[0].value = ""
     })
 
@@ -78,19 +77,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function updatesParkListBySearch(parkSubset){
     let idList = [];
-    parkSubset.forEach((park) =>{
-        idList.push(park.id)
-    })
+    parkSubset.forEach((park) =>{idList.push(park.id) })
     let parkScroll = document.getElementById("parks_ul");
     for(let i = 0; i < parkScroll.children.length; i++){
         let parkListElement = parkScroll.children[i];
-        if (idList.includes(parkListElement.data)){
-            parkListElement.style.display = "block"
-        } else {
-            parkListElement.style.display = "none"
-        }
+        if (idList.includes(parkListElement.data)){ parkListElement.style.display = "block"} 
+        else { parkListElement.style.display = "none"}
     }
-    // console.log("hello")
 }
 
 function populateMap(){

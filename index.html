@@ -1,3 +1,4 @@
+<!-- withBackend -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -127,7 +128,7 @@
                                     <input value="Stargazing" type="checkbox"> Stargazing <i class="fa-solid fa-star-and-crescent"></i>
                                 </label>
                                 <label>
-                                    <input value="Hunting" type="checkbox"> Hunting <i class="fa-solid fa-utensils"></i>
+                                    <input value="Camping" type="checkbox"> Camping <i class="fa-solid fa-campground"></i>
                                 </label>
                                 <label>
                                     <input value="Swimming" type="checkbox"> Swimming <i class="fa-solid fa-person-swimming"></i>
@@ -246,7 +247,9 @@
             </div>
             <div class="park-showpage">
                 <div class="park-name">
-                    <a id="park-name" href="">Park Name</a>
+                    <div class="park-name-box">
+                        <a id="park-name" href="">Park Name</a>
+                    </div>
                     <div class="park-close"> 
                         <a id="park-close" href="">✖</a>
                     </div>
@@ -266,7 +269,7 @@
                                 <div class="prev">
                                     <a id="prev-a" onclick="plusSlides(-1)">&#10094;</a>
                                 </div>
-                                <img id="main-modal-image" src="assets/simple-forest.jpg" alt="">
+                                <img id="main-modal-image" src="" alt="">
                                 <div class="next">
                                     <a id="next-a" onclick="plusSlides(1)">&#10095;</a>
                                 </div>
@@ -283,6 +286,12 @@
                         <p></p>
                     </div>
 
+                    <div class="activities">
+                        <h4>Activities:</h4>
+                        <ul class="activities-ul">
+                        </ul>
+                    </div>
+
                     <div class="hoursOfOp">
                         <h4>Operating Hours:</h4>
                         <ul class="hoursOfOp-ul">
@@ -294,12 +303,8 @@
                         <ul class="daysOpen-ul">
                         </ul>
                     </div>
+                    
 
-                    <div class="activities">
-                        <h4>Activities:</h4>
-                        <ul class="activities-ul">
-                        </ul>
-                    </div>
     
                     <div class="gmap">
                         <iframe id="parks-maps"

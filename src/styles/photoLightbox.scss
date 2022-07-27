@@ -72,12 +72,15 @@
         max-width: 1000px;
     }
 
+    .modal-image-previews::-webkit-scrollbar {display:none;}
     .modal-image-previews{
         max-width: 1100px;
         display: inline-block;
         overflow-x: auto;
         white-space: nowrap;
         overflow-y: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
         img{
             height:100px;
             padding-right:3px;

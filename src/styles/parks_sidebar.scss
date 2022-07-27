@@ -140,19 +140,19 @@
         // height: 580px;
 
         .park-name{
-            // background-color: #377040;
-            // text-align: center;
-            // padding: 10px;
+            display: flex;
+            justify-content: space-between;
             font-size: 20px;
-            // padding-left: 5px;
             padding: 10px;
-            // text-decoration: none;
+            .park-name-box{
+                width: 435px;
+                display: inline-block;
+                overflow-x: hidden;
+                white-space: nowrap;
+            }
+
             a {
                 color: #fff4cf;
-            }
-            .park-close{
-                float: right;
-                padding-right: 5px;
             }
         }
 
@@ -167,13 +167,17 @@
             align-items: center;
 
             .park-images {
+
+                .small-images::-webkit-scrollbar {display:none;}
                 .small-images{
-                    width: 475px;
+                    width: 480px;
                     border-radius: 15px;
-                    // background-color: red;
+                    scrollbar-width: none;
+                    -ms-overflow-style: none;
+
                     height: 250px;
                     display: inline-block;
-                    overflow-x: auto;
+                    overflow-x: scroll;
                     white-space: nowrap;
                     overflow-y: hidden;
                     img{
