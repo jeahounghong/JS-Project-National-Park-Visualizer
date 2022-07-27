@@ -55,8 +55,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".search-container form").addEventListener("submit",(event)=>{
         event.preventDefault();
         let searchTerm = event.target.elements[0].value
-        // console.log(searchTerm)
-        fetch(`https://developer.nps.gov/api/v1/parks?limit=467&q=${searchTerm}&api_key=P3sQ0KIWhYmCMsDJp5VDzLSAAOvDY0X7psUzGTMN`)
+        console.log(searchTerm)
+        // fetch(`https://developer.nps.gov/api/v1/parks?limit=467&q=${searchTerm}&api_key=P3sQ0KIWhYmCMsDJp5VDzLSAAOvDY0X7psUzGTMN`)
+        fetch(`https://developer.nps.gov/api/v1/parks?limit=467&q=${searchTerm}&api_key=${process.env.parkAPIKEY}`)
             .then(res => res.json())
             .then(res => searchedParks = res.data)
             .then(() => {
@@ -68,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         event.target.elements[0].value = ""
     })
 
-    fetch('https://developer.nps.gov/api/v1/parks?limit=467&api_key=P3sQ0KIWhYmCMsDJp5VDzLSAAOvDY0X7psUzGTMN')
+    fetch(`https://developer.nps.gov/api/v1/parks?limit=467&api_key=${process.env.parkAPIKEY}`)
         .then(res => res.json())
         .then(res => parks = res.data)
         .then(populateMap)
