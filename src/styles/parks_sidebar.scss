@@ -99,6 +99,22 @@
                 color: #fff4cf;
                 border-radius: 10px;
             }
+
+            #daysOpen{
+                display: flex;
+                justify-content: space-between;
+                label {
+                    border: solid 3px #377040;
+                    border-radius: 10px;
+                    padding: 5px;
+                    // input {
+                    //     display: none;
+                    // }
+                }
+                label:hover {
+                    background-color: #d0c7a8;
+                }
+            }
         }
     }
 
@@ -124,7 +140,8 @@
             // text-align: center;
             // padding: 10px;
             font-size: 20px;
-            padding-left: 5px;
+            // padding-left: 5px;
+            padding: 10px;
             // text-decoration: none;
             a {
                 color: #fff4cf;
@@ -177,18 +194,28 @@
             }
     
             .description {
-                margin-top: 5px;
+                // margin-top: 5px;
                 background-color: #fff4cf;
                 color:#377040;
-                padding: 5px;
+                padding: 10px;
                 border-radius: 10px;
             }
 
             .hoursOfOp {
+                display: block;
                 margin-top: 5px;
                 background-color: #fff4cf;
                 color:#377040;
-                padding: 5px;
+                padding: 10px;
+                border-radius: 10px;
+            }
+
+            .daysOpen{
+                display: block;
+                margin-top: 5px;
+                background-color: #fff4cf;
+                color:#377040;
+                padding: 10px;
                 border-radius: 10px;
             }
 
@@ -196,10 +223,13 @@
                 margin-top: 5px;
                 background-color: #fff4cf;
                 color:#377040;
-                padding: 5px;
+                padding: 10px;
                 border-radius: 10px;
 
                 ul {
+                    border-radius: 5px;
+                    border: solid 3px #377040;
+                    padding: 10px;
                     max-height: 200px;
                     overflow: scroll;
                 }

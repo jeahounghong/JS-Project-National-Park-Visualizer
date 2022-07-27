@@ -108,6 +108,10 @@ body {
   border-radius: 15px;
   border: solid 1px black;
 }
+.viz svg .heavy {
+  fill: black;
+  font: bold 20px sans-serif;
+}
 
 .location-viewer {
   display: flex;
@@ -116,6 +120,7 @@ body {
   justify-content: center;
   background-color: #377040;
   border-radius: 15px;
+  max-height: 200px;
 }
 .location-viewer .location {
   font-family: "Rockwell";
@@ -134,19 +139,17 @@ body {
   opacity: 80%;
 }
 
-.tooltiptext {
-  visibility: hidden;
-  color: red;
-  position: relative;
-}
-
 .parks:hover {
   /* color: red; */
-  fill: yellow;
 }
-.parks:hover .tooltiptext {
-  visibility: visible;
-  z-index: 1000;
+
+.tooltip {
+  background-color: #fff4cf;
+  border-radius: 3px;
+  padding: 5px;
+  font-family: "Rockwell";
+  color: #377040;
+  font-size: 16px;
 }
 
 .top_header {
@@ -293,6 +296,18 @@ body {
   color: #fff4cf;
   border-radius: 10px;
 }
+.parks_sidebar .parks-sidebar-search #filterForm #daysOpen {
+  display: flex;
+  justify-content: space-between;
+}
+.parks_sidebar .parks-sidebar-search #filterForm #daysOpen label {
+  border: solid 3px #377040;
+  border-radius: 10px;
+  padding: 5px;
+}
+.parks_sidebar .parks-sidebar-search #filterForm #daysOpen label:hover {
+  background-color: #d0c7a8;
+}
 .parks_sidebar .park-showpage {
   background-color: rgba(55, 112, 64, 0.9);
   color: #fff4cf;
@@ -302,7 +317,7 @@ body {
 }
 .parks_sidebar .park-showpage .park-name {
   font-size: 20px;
-  padding-left: 5px;
+  padding: 10px;
 }
 .parks_sidebar .park-showpage .park-name a {
   color: #fff4cf;
@@ -341,27 +356,38 @@ body {
   filter: brightness(50%);
 }
 .parks_sidebar .park-showpage .park-scroll .description {
-  margin-top: 5px;
   background-color: #fff4cf;
   color: #377040;
-  padding: 5px;
+  padding: 10px;
   border-radius: 10px;
 }
 .parks_sidebar .park-showpage .park-scroll .hoursOfOp {
+  display: block;
   margin-top: 5px;
   background-color: #fff4cf;
   color: #377040;
-  padding: 5px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.parks_sidebar .park-showpage .park-scroll .daysOpen {
+  display: block;
+  margin-top: 5px;
+  background-color: #fff4cf;
+  color: #377040;
+  padding: 10px;
   border-radius: 10px;
 }
 .parks_sidebar .park-showpage .park-scroll .activities {
   margin-top: 5px;
   background-color: #fff4cf;
   color: #377040;
-  padding: 5px;
+  padding: 10px;
   border-radius: 10px;
 }
 .parks_sidebar .park-showpage .park-scroll .activities ul {
+  border-radius: 5px;
+  border: solid 3px #377040;
+  padding: 10px;
   max-height: 200px;
   overflow: scroll;
 }

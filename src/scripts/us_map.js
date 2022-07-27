@@ -7,6 +7,8 @@ export function generateMap(parks, Lightbox){
     //                       into the clicked function
     let states_features = {};
     let currentParkId;
+    let mouseScale = 1;
+    let mouseTranslate = [0,0];
 
 
    
@@ -40,15 +42,23 @@ export function generateMap(parks, Lightbox){
         let activitiesForm = document.getElementById("activities");
         let activities = {}
         for(let i = 0; i < activitiesForm.children.length; i++){
-            activities[activitiesForm.children[i].children[0].value] = activitiesForm.children[i].children[0].checked
+            activities[activitiesForm.children[i].children[0].value] = activitiesForm.children[i].children[0].checked;
         }
-        zoomToState(state);
+
+        let daysForm = document.getElementById("daysOpen");
+        let daysOpen = {}
+        for(let i = 0; i < daysForm.children.length; i++){
+            daysOpen[daysForm.children[i].children[0].value] = daysForm.children[i].children[0].checked;
+        }
+        console.log(daysOpen)
+        zoomToState(state, activities, daysOpen);
     })
 
     document.getElementById("parks_ul").addEventListener("click", (event)=>{
         event.preventDefault();
         // console.log(event.target.data)
         if (event.target.data){
+            d3.selectAll('.parks').style("fill","green")
             showParkPage(event.target.data)
         }
     })
@@ -134,17 +144,13 @@ export function generateMap(parks, Lightbox){
     }
 
     var margin = {
-        // top: 10,
-        // bottom: 10,
-        // left: 10,
-        // right: 10,
         top: 0,
         bottom: 0,
         left: 0,
         right: 0
     }, width = parseInt(d3.select('.viz').style('width'))
         , width = width - margin.left - margin.right - 2*parseFloat(d3.select('.viz').style('padding'))
-        , mapRatio = 0.6 // previously 0.5
+        , mapRatio = 0.66 // previously 0.5
         , height = width * mapRatio
         , active = d3.select(null);
 
@@ -174,7 +180,6 @@ export function generateMap(parks, Lightbox){
         .attr('transform', 'translate('+margin.left+','+margin.top+')')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
-
     
     let header = d3.select('.viz').append('div').attr('class','location-viewer')
         .append('div')
@@ -208,13 +213,17 @@ export function generateMap(parks, Lightbox){
                 }
             })
             .on("click",clicked);
-
-        console.log(states_features)
+        // console.log(states_features)
 
         g.append("path")
             .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
             .attr("id", "state-borders")
             .attr("d", path);
+
+        var tooltip = d3.select(".viz")
+            .append("div")
+            .style("opacity", 0)
+            .attr("class", "tooltip")
         
         g.append("g")
             .attr("id", "parks-dots")
@@ -242,10 +251,9 @@ export function generateMap(parks, Lightbox){
                     return null;
                 }
             })
-            .append("span")
-            .attr("class","tooltiptext")
-            .html((d)=>d.fullName)
-
+            .attr("title", (d)=>{
+                return d.fullName;
+            })
 
             // After the park dots have been created, an event listener is added to them
             document.getElementById("parks-dots").addEventListener("click", (event) =>{
@@ -253,7 +261,7 @@ export function generateMap(parks, Lightbox){
                 event.stopPropagation();
                 showParkPage(event.target.id)
             })
-
+            
             document.getElementById("parks-dots").addEventListener("mouseover", (event)=>{
                 event.preventDefault();
                 let parkDot = event.target;
@@ -263,10 +271,25 @@ export function generateMap(parks, Lightbox){
                 parkDot.style.fill = "yellow";
                 let selectedParkRadius = document.querySelector(".location").innerHTML.includes("United States of America") ? 6 : 3;
                 parkDot.setAttribute("r", selectedParkRadius)
+                
+                // console.log(event.target.getAttribute("title"));
+                tooltip
+                    .html(event.target.getAttribute("title"))
+                    .style("left", (event.clientX + 10) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+                    .style("top", (event.clientY) + "px")
+                    .style("opacity",1)
+
                 parkDot.style.zIndex = 10000
             })
+
             document.getElementById("parks-dots").addEventListener("mouseout", (event)=>{
                 event.preventDefault();
+
+                tooltip
+                    .transition()
+                    .duration(200)
+                    .style("opacity", 0)
+
                 let parkDot = event.target;
                 if (currentParkId === parkDot.id){
                     makeDotRed(parkDot);
@@ -308,18 +331,21 @@ export function generateMap(parks, Lightbox){
             y = (bounds[0][1] + bounds[1][1]) / 2,
             scale = .9 / Math.max(dx / width, dy / height),
             translate = [width / 2 - scale * x, height / 2 - scale * y];
-
+        
+        mouseScale = scale;
+        mouseTranslate = translate;
         g.transition()
             .duration(750)
             .style("stroke-width", 1.5 / scale + "px")
             .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
     }
 
-    function zoomToState(state){
+    function zoomToState(state, activities, days){
         // updatesParksList(state);
 
         if (state === "any"){
-            reset()
+            updatesParksList(state, activities,days)
+            reset(activities, days)
         } else {
             for(let i =1; i < 60; i++){
                 if (idToStates[i] === state){
@@ -330,7 +356,7 @@ export function generateMap(parks, Lightbox){
         }
     }
 
-    function updatesParksList(state){
+    function updatesParksList(state, activities, days){
         let stateScroll = document.getElementById("parks_ul");
         for(let i = 0; i < stateScroll.children.length; i++){
             let parkListElement = stateScroll.children[i];
@@ -341,6 +367,49 @@ export function generateMap(parks, Lightbox){
                 parkListElement.style.display = "block"
             } else {
                 parkListElement.style.display = "none"
+            }
+        }
+
+        if (days){
+            console.log(days)
+            for(let i = 0; i < stateScroll.children.length; i++){
+                // console.log(stateScroll.children[i].data)
+                let parkListElement = stateScroll.children[i]
+                let hasOperatingHours = parkObjectFromId(parkListElement.data).operatingHours.length > 0
+                console.log(parkObjectFromId(parkListElement.data));
+                let stdHours;
+                if (hasOperatingHours) {
+                    stdHours = parkObjectFromId(parkListElement.data).operatingHours[0].standardHours
+                }
+                if (days.monday && hasOperatingHours && stdHours && (stdHours.monday === "Closed")){
+                    stateScroll.children[i].style.display = "none"
+                }
+                if (days.tuesday && hasOperatingHours && stdHours && (stdHours.tuesday === "Closed")){
+                    stateScroll.children[i].style.display = "none"
+                }
+                if (days.wednesday && hasOperatingHours && stdHours && (stdHours.wednesday === "Closed")){
+                    stateScroll.children[i].style.display = "none"
+                }
+                if (days.thursday && hasOperatingHours && stdHours && (stdHours.thursday === "Closed")){
+                    stateScroll.children[i].style.display = "none"
+                }
+                if (days.friday && hasOperatingHours && stdHours && (stdHours.friday === "Closed")){
+                    stateScroll.children[i].style.display = "none"
+                }
+                if (days.saturday && hasOperatingHours && stdHours && (stdHours.saturday === "Closed")){
+                    stateScroll.children[i].style.display = "none"
+                }
+                if (days.sunday && hasOperatingHours && stdHours && (stdHours.sunday === "Closed")){
+                    stateScroll.children[i].style.display = "none"
+                }
+            }
+        }
+    }
+
+    function parkObjectFromId(id){
+        for(let i = 0; i < 467; i++){
+            if (parks[i].id === id){
+                return parks[i];
             }
         }
     }
@@ -381,8 +450,15 @@ export function generateMap(parks, Lightbox){
         // },500)
 
         // Zoom to appropriate state
-        // if ()
-        zoomToState(showPark.states)
+        if (currentState !== showPark.states){
+            
+            // d3.selectAll('.parks').style("fill","green")
+            // d3.select(".parks-sidebar-search").style('display','block')
+            // d3.select(".park-showpage").style('display','none')
+            zoomToState(showPark.states)
+        } else {
+
+        }
 
         // Adds park name
         d3.select("#park-name").html(`${showPark.fullName}`)
@@ -394,11 +470,39 @@ export function generateMap(parks, Lightbox){
         // Adds the Operating Hours
         removeAllChildNodes("hoursOfOp-ul")
         let node1 = document.querySelector(".hoursOfOp-ul")
+        document.querySelector(".hoursOfOp").style.display = "block";
         for (let i = 0; i < showPark.operatingHours.length; i++){
             let descriptionOfHours = document.createElement("li")
             descriptionOfHours.innerHTML = showPark.operatingHours[i].description
             node1.appendChild(descriptionOfHours)
         }
+        if (showPark.operatingHours.length < 1){
+            document.querySelector(".hoursOfOp").style.display = "none"
+        }
+
+        // Adds Days Open
+        removeAllChildNodes("daysOpen-ul")
+        let node2 = document.querySelector(".daysOpen-ul")
+        if (showPark.operatingHours && showPark.operatingHours[0] && showPark.operatingHours[0].standardHours){
+            document.getElementsByClassName("daysOpen")[0].style.display = "block"
+            let days = {monday: "Monday", tuesday: "Tuesday", wednesday: "Wednesday",
+                        thursday: "Thursday", friday: "Friday", saturday: "Saturday", sunday: "Sunday"}
+            Object.keys(days).forEach((key)=>{
+                let day = document.createElement("li")
+                day.innerHTML = `${days[key]}: ${showPark.operatingHours[0].standardHours[key]}`
+                node2.appendChild(day)
+            })
+        } else {
+            console.log(document.getElementsByClassName("daysOpen")[0])
+            document.getElementsByClassName("daysOpen")[0].style.display = "none"
+        }
+        // let parkListElement = stateScroll.children[i]
+        //         let hasOperatingHours = parkObjectFromId(parkListElement.data).operatingHours.length > 0
+        //         console.log(parkObjectFromId(parkListElement.data));
+        //         let stdHours;
+        //         if (hasOperatingHours) {
+        //             stdHours = parkObjectFromId(parkListElement.data).operatingHours[0].standardHours
+        //         }
 
         // Adds the Activities
         removeAllChildNodes("activities-ul")
@@ -463,14 +567,6 @@ export function generateMap(parks, Lightbox){
             })
     }
 
-    // function removeElementsByClass(className){
-    //     const elements = document.getElementsByClassName(className);
-    //     while(elements.length > 0){
-    //         elements[0].parentNode.removeChild(elements[0]);
-    //     }
-    // }
-
-
     function removeAllChildNodes(className){
         let parent = document.getElementsByClassName(className)[0];
         while (parent.firstChild) {
@@ -485,45 +581,16 @@ export function generateMap(parks, Lightbox){
         parkDot.setAttribute('r',2);
     }
 
-    // function drawParksByState(stateId){
-    //     g.append("g")
-    //         .selectAll("path")
-    //         .data(parks)
-    //         .enter().append("circle")
-    //         .attr("id", function(d){
-    //             return d.id;
-    //         })
-    //         .attr("class", "parks")
-    //         // .attr("id", d.id)
-    //         .attr("r", 2)
-    //         .attr("cx", function(d){
-    //             console.log(d)
-    //             let coords = projection([parseFloat(d.longitude),parseFloat(d.latitude)])
-    //             if (coords && d.states === idToStates[stateId]){
-    //                 return coords[0];
-    //             } else {
-    //                 return null;
-    //             }
-    //         })
-    //         .attr("cy", function(d){
-    //             let coords = projection([parseFloat(d.longitude),parseFloat(d.latitude)])
-    //             if (coords && d.states === idToStates[stateId]){
-    //                 return coords[1];
-    //             } else {
-    //                 return null;
-    //             }
-    //         })
-    // }
-
-
-
     function reset() {
-
+        mouseScale = 1;
+        mouseTranslate = [0,0]
         d3.select(".parks-sidebar-search").style('display','block')
         d3.select(".park-showpage").style('display','none')
         d3.selectAll('.parks').attr("r",2)
         d3.selectAll('.parks').style("fill","green")
-        updatesParksList("any");
+        if (arguments.length === 0){
+            updatesParksList("any");
+        }
         currentState = "United States of America"
         d3.select('.location').html(`You are currently viewing: ${currentState}`)
         active.classed("active", false);
