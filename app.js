@@ -24,8 +24,8 @@ app.listen(PORT, () => {
 
 
 // app.js
-app.get("/parksAPI", (request,response) =>{
-  const urlStart = 'https://developer.nps.gov/api/v1/parks?limit=467';
+app.get('/parksAPI', (request,response) =>{
+  const urlStart = 'https://developer.nps.gov/api/v1/parks?limit=50';
   const apiKey = process.env.parkAPIKEY;
   const searchTerm = request.query.searchTerm
   let url;
@@ -38,9 +38,18 @@ app.get("/parksAPI", (request,response) =>{
   console.log(`Fetching: ${url}`);
 
   fetch(url) // AJAX request to API
-    .then(apiResponse => apiResponse.json())
-    .then(data => response.send(data))
-    .catch(error => response.send(error));
+    .then(apiResponse => {
+      // apiResponse.json()
+      apiResponse.text()
+      // return JSON.parse(apiResponse)
+    })
+    .then(data => {
+      console.log(data);
+      return response.send(data);
+    })
+    .catch(error => {
+      console.log(error);
+      return response.send(error)});
 });
 
 app.get('/flickrAPI', (request,response) =>{

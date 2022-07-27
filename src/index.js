@@ -70,10 +70,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fetch('/parksAPI')
         // .then(res => res.json())
-        .then(res => parks = res.data)
+        .then(res => {
+            parks = res.data})
         .then(populateMap)
         .then(populateAllParks)
 
+        // https://developer.nps.gov/api/v1/parks?limit=467&api_key=P3sQ0KIWhYmCMsDJp5VDzLSAAOvDY0X7psUzGTMN
     // fetch(`https://developer.nps.gov/api/v1/parks?limit=467&api_key=${process.env.parkAPIKEY}`)
     //     .then(res => res.json())
     //     .then(res => parks = res.data)
