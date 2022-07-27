@@ -28,7 +28,7 @@ app.get("/parksAPI", (request,response) =>{
   const urlStart = 'https://developer.nps.gov/api/v1/parks?limit=467';
   const apiKey = process.env.parkAPIKEY;
   const searchTerm = request.query.searchTerm
-  const url;
+  let url;
   if (searchTerm){
     url = `${urlStart}&q=${searchTerm}&api_key=${apiKey}`;
   } else {
