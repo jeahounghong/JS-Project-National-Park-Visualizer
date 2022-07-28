@@ -42,13 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // event.preventDefault();
         event.stopPropagation();
         setTimeout(()=>{
-            let selected = event.target.children[0].checked
-            if (selected){
+            let selected = event.target.children[0]
+            if (selected && selected.checked){
                 event.target.style.backgroundColor = "#d0c7a8"
             } else {
                 event.target.style.backgroundColor = "#fff4cf"
             }
-            console.log(selected);
         },0)
     })
     document.getElementById("daysOpen").addEventListener("mouseover",(event)=>{
@@ -73,8 +72,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // event.preventDefault();
         event.stopPropagation();
         setTimeout(()=>{
-            let selected = event.target.children[0].checked
-            if (selected){
+            let selected = event.target.children[0]
+            if (selected && selected.checked){
                 event.target.style.backgroundColor = "#d0c7a8"
             } else {
                 event.target.style.backgroundColor = "#fff4cf"

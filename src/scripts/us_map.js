@@ -12,7 +12,7 @@ export function generateMap(parks, Lightbox){
     const idToStates = {
         1: "AL", 2: "AK", 3: "AR", 4: "AZ", 5: "AR", 6: "CA", 7: "CT", 8: "CO", 9: "CT", 10: "DE",
         11: "GA", 12: "FL", 13: "GA", 14: "IL", 15: "HI", 16: "ID", 17: "IL", 18: "IN", 19: "IA",
-        20: "KS", 21: "KY", 22: "LA", 23: "MI", 24: "MD", 25: "MA", 26: "MI", 27: "MN", 28: "MS",
+        20: "KS", 21: "KY", 22: "LA", 23: "ME", 24: "MD", 25: "MA", 26: "MI", 27: "MN", 28: "MS",
         29: "MO", 30: "MT", 31: "NE", 32: "NV", 33: "NH", 34: "NJ", 35: "NM", 36: "NY", 37: "NC",
         38: "ND", 39: "OH", 40: "OK", 41: "OR", 42: "PA", 43: "TN", 44: "RI", 45: "SC", 46: "SD",
         47: "TN", 48: "TX", 49: "UT", 50: "VT", 51: "VA", 53: "WA", 54: "WV", 55: "WI" , 56: "WY"  
@@ -452,7 +452,7 @@ export function generateMap(parks, Lightbox){
         },500)
 
         if (currentState !== showPark.states){
-            zoomToState(showPark.states)
+            zoomToState((showPark.states.slice(0,2) === "DC" ? "MD" : showPark.states.slice(0,2)))
         } else {
 
         }
@@ -535,20 +535,26 @@ export function generateMap(parks, Lightbox){
         let count = 0;
 
         for (let i = 0; i < showPark.images.length;i ++){
-            count += 1;
-            let image = document.createElement("img");
-            image.src = showPark.images[i].url;
-            image.loading = 'lazy';
-            lightbox.appendChild(image);
-            // modal.appendChild(image);
+            checkImageValid(showPark.images[i].url).then((status)=>{
+                if (status !== 404){
+                    count += 1;
+                    let image = document.createElement("img");
+                    image.src = showPark.images[i].url;
+                    image.loading = 'lazy';
+                    lightbox.appendChild(image);
+                }
+            })
         }
         for (let i = 0; i < showPark.images.length;i ++){
-            // count += 1;
-            let image = document.createElement("img");
-            image.src = showPark.images[i].url;
-            image.loading = 'lazy';
-            // lightbox.appendChild(image);
-            modal.appendChild(image);
+            checkImageValid(showPark.images[i].url).then((status)=>{
+                if (status !== 404){
+                    count += 1;
+                    let image = document.createElement("img");
+                    image.src = showPark.images[i].url;
+                    image.loading = 'lazy';
+                    modal.appendChild(image);
+                }
+            })
         }
         
         // Populating the images
@@ -589,8 +595,10 @@ export function generateMap(parks, Lightbox){
     }
 
     function checkImageValid(url){
-        fetch(url).then((res)=>{
-            console.log(res.status)
+        let statusCode = 21;
+        return fetch(url).then((res)=>{
+            statusCode = res.status
+            return statusCode
         })
     }
 
