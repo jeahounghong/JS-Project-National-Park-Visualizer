@@ -36,6 +36,7 @@ In addition, this project will include:
 - README
 - Future features:
     - A future feature would be to have the park dots on the map reflect the parks list so that they are tied together at all times. 
+    - Because there are some image urls that are provided by the parks resource API, another future feature would be to start asynchronously rendering these images upon page load and having them hidden until a park is clicked on.
 
 ## Wireframes
 ![Layout upon first loading the page](/wireframes/wireframe_1.png?raw=true)
