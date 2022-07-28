@@ -201,6 +201,7 @@ body {
   border-radius: 7px;
   height: 30px;
   width: 30px;
+  border: none;
 }
 .top_header .search_questions i {
   padding-top: 3px;
@@ -209,7 +210,10 @@ body {
 .top_header .search_questions input {
   border-radius: 7px;
   background-color: #fff4cf;
-  padding: 3px;
+  padding-top: 6px;
+  padding-left: 6px;
+  padding-bottom: 3px;
+  border: none;
 }
 .top_header .search_questions #info-button {
   font-size: 25px;
@@ -267,7 +271,7 @@ body {
 }
 .parks_sidebar .parks-sidebar-search .scrollable_parks .scrollable_parks_ul {
   background-color: #fff4cf;
-  height: 267px;
+  height: 265px;
   overflow-y: scroll;
   border-radius: 15px;
 }
@@ -393,7 +397,7 @@ body {
   border-radius: 15px;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  height: 250px;
+  height: 250x;
   display: inline-block;
   overflow-x: scroll;
   white-space: nowrap;

@@ -53,6 +53,7 @@
             border-radius: 7px;
             height: 30px;
             width: 30px;
+            border: none;
         }
         i {
             padding-top: 3px;
@@ -61,7 +62,10 @@
         input{
             border-radius: 7px;
             background-color: #fff4cf;
-            padding: 3px;
+            padding-top: 6px;
+            padding-left: 6px;
+            padding-bottom: 3px;
+            border: none;
         }
         #info-button {
             font-size: 25px;

@@ -12,7 +12,7 @@ export function generateMap(parks, Lightbox){
     const idToStates = {
         1: "AL", 2: "AK", 3: "AR", 4: "AZ", 5: "AR", 6: "CA", 7: "CT", 8: "CO", 9: "CT", 10: "DE",
         11: "GA", 12: "FL", 13: "GA", 14: "IL", 15: "HI", 16: "ID", 17: "IL", 18: "IN", 19: "IA",
-        20: "KS", 21: "KY", 22: "LA", 23: "ME", 24: "MD", 25: "MA", 26: "MI", 27: "MN", 28: "NE",
+        20: "KS", 21: "KY", 22: "LA", 23: "MI", 24: "MD", 25: "MA", 26: "MI", 27: "MN", 28: "MS",
         29: "MO", 30: "MT", 31: "NE", 32: "NV", 33: "NH", 34: "NJ", 35: "NM", 36: "NY", 37: "NC",
         38: "ND", 39: "OH", 40: "OK", 41: "OR", 42: "PA", 43: "TN", 44: "RI", 45: "SC", 46: "SD",
         47: "TN", 48: "TX", 49: "UT", 50: "VT", 51: "VA", 53: "WA", 54: "WV", 55: "WI" , 56: "WY"  
@@ -25,7 +25,7 @@ export function generateMap(parks, Lightbox){
         "IL": "Illinois", "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana",
         "IA": "Iowa", "KS": "Kansas", "KY":"Kentucky", "MD": "Maryland", "LA": "Louisiana", "ME": "Maine",
         "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota", "NE": "Nebraska", "MO": "Missouri",
-        "MT": "Montana", "NV": "Nevada", "NH": "New Hampshire", "NM": "New Mexico", "NC": "North Carolina",
+        "MT": "Montana", "MS":"Mississippi" ,"NV": "Nevada", "NH": "New Hampshire", "NM": "New Mexico", "NC": "North Carolina",
         "NY": "New York", "NJ": "New Jersey", "ND": "North Dakota", "OH": "Ohio", "OK": "Oklahoma",
         "OR": "Oregon", "PA": "Pennsylvania", "TN": "Tennessee", "RI": "Rhode Island", "SC": "South Carolina",
         "SD": "South Dakota", "TX": "Texas", "UT": "Utah", "VT": "Vermont", "VA": "Virginia", "WA": "Washington",
