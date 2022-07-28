@@ -14,6 +14,16 @@ Luckily, the National Parks Service API proved to be an amazing resource with pr
 ![Zooming into a state](/assets/stateZoom.gif?raw=true)
 <p align="center">Zooming into a state<p>
 
+
+![Zooming into a state](/assets/searchParks.gif?raw=true)
+<p align="center">Filter and search for parks<p>
+
+![Zooming into a state](/assets/parkShowPage.gif?raw=true)
+<p align="center">Parks Show Page<p>
+
+
+
+
 ## Functionality & MVPs
 In the National Park visualizer, users will be able to:
 - View all of the national parks in the 50 US States
