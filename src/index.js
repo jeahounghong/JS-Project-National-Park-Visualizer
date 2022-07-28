@@ -135,7 +135,7 @@ function updatesParkListBySearch(parkSubset){
 
 function populateMap(){
     US_MAP.generateMap(parks, Lightbox);
-    console.log(parks)
+    // console.log(parks)
 }
 
 function populateAllParks(){

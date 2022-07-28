@@ -35,7 +35,6 @@ export function generateMap(parks, Lightbox){
     // Event listener to handle submissions inside the Parks Filter
     document.querySelector(".filterBox").addEventListener('submit', (event)=>{
         event.preventDefault();
-        console.log(event.target)
         let state = document.getElementById("state_select").value;
         let activitiesForm = document.getElementById("activities");
         let activities = {}
@@ -48,7 +47,7 @@ export function generateMap(parks, Lightbox){
         for(let i = 0; i < daysForm.children.length; i++){
             daysOpen[daysForm.children[i].children[0].value] = daysForm.children[i].children[0].checked;
         }
-        console.log(daysOpen)
+        
         zoomToState(state, activities, daysOpen);
     })
 
@@ -77,7 +76,7 @@ export function generateMap(parks, Lightbox){
     { // Handling photo lightbox modals
         document.querySelector(".small-images").addEventListener("click", (event)=>{
             event.preventDefault();
-            console.log(event.target)
+            
             Lightbox.openModal();
             Lightbox.currentSlide(event.target)
         })
@@ -112,7 +111,7 @@ export function generateMap(parks, Lightbox){
         document.querySelector(".modal-image-previews").addEventListener("click", (event)=>{
             event.preventDefault();
             if (event.target){
-                console.log(event.target.src)
+                
                 document.getElementById("main-modal-image").src = event.target.src;
             }
         })
@@ -205,17 +204,15 @@ export function generateMap(parks, Lightbox){
             .attr("d", path)
             .attr("class", "state")
             .attr("id", (d)=>{
-                // console.log(d);
                 if (idToStates[d.id]){
                     states_features[idToStates[d.id]] = d
                     return idToStates[d.id];
                 } else {
-                    console.log(d.id)
                     return `${d.id}`
                 }
             })
             .on("click",clicked);
-        // console.log(states_features)
+        
 
         g.append("path")
             .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
@@ -274,7 +271,6 @@ export function generateMap(parks, Lightbox){
                 let selectedParkRadius = document.querySelector(".location").innerHTML.includes("United States of America") ? 6 : 3;
                 parkDot.setAttribute("r", selectedParkRadius)
                 
-                // console.log(event.target.getAttribute("title"));
                 tooltip
                     .html(event.target.getAttribute("title"))
                     .style("left", (event.clientX + 10) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
@@ -306,16 +302,15 @@ export function generateMap(parks, Lightbox){
     }
 
     function clicked(d , ...args) {
-        console.log("click!")
-        currentState = idToStates[d.id];
-        console.log(d.id, currentState)
+
+        if (d){
+            currentState = idToStates[d.id];
+        }
         updatesParksList(currentState, ...args);
         d3.selectAll('.parks').attr("r",1)
         d3.select('.location').html(`You are currently viewing: <span>${AbToState[currentState]}</span>`)
 
         if (d3.select('.background').node() === this){
-            // console.log(d3.select('.background'))
-            // console.log(d3.select('.background').node())
             return reset();  
         } 
 
@@ -367,9 +362,8 @@ export function generateMap(parks, Lightbox){
         }
 
         if (days){
-            console.log(days)
             for(let i = 0; i < stateScroll.children.length; i++){
-                // console.log(stateScroll.children[i].data)
+                
                 let parkListElement = stateScroll.children[i]
                 let hasOperatingHours = parkObjectFromId(parkListElement.data).operatingHours.length > 0
                 let stdHours;
@@ -469,15 +463,11 @@ export function generateMap(parks, Lightbox){
 
         let idx;
         document.querySelector(".park-name-box").addEventListener("mouseenter", ()=>{
-            console.log("hi")
-            // document.querySelector(".park-name-box").scrollLeft += 20
             idx = setInterval(() => document.querySelector(".park-name-box").scrollLeft += 3, 30);
         })
         document.querySelector(".park-name-box").addEventListener("mouseleave", ()=>{
-            console.log("bye")
-            document.querySelector(".park-name-box").scrollLeft -= 300
             clearInterval(idx)
-            // idx = setInterval(() => document.querySelector(".park-name-box").scrollLeft += 1, 10);
+            document.querySelector(".park-name-box").scrollLeft -= 300
         })
 
         // Adds park description
@@ -509,7 +499,6 @@ export function generateMap(parks, Lightbox){
                 node2.appendChild(day)
             })
         } else {
-            console.log(document.getElementsByClassName("daysOpen")[0])
             document.getElementsByClassName("daysOpen")[0].style.display = "none"
         }
 
@@ -599,8 +588,13 @@ export function generateMap(parks, Lightbox){
         parkDot.setAttribute('r',2);
     }
 
+    function checkImageValid(url){
+        fetch(url).then((res)=>{
+            console.log(res.status)
+        })
+    }
+
     function reset() {
-        console.log(arguments)
         d3.select(".parks-sidebar-search").style('display','block')
         d3.select(".park-showpage").style('display','none')
         d3.selectAll('.parks').attr("r",2)
