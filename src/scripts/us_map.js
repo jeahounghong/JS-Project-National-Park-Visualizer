@@ -452,7 +452,7 @@ export function generateMap(parks, Lightbox){
         },500)
 
         if (currentState !== showPark.states){
-            zoomToState((showPark.states.slice(0,2) === "DC" ? "MD" : showPark.states.slice(0,2)))
+            zoomToState((showPark.states === "DC" ? "MD" : showPark.states))
         } else {
 
         }
