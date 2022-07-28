@@ -452,7 +452,11 @@ export function generateMap(parks, Lightbox){
         },500)
 
         if (currentState !== showPark.states){
-            zoomToState((showPark.states === "DC" ? "MD" : showPark.states))
+            let state = showPark.states.slice(0,2);
+            if (showPark.fullName === "Appalachian National Scenic Trail" ){
+                state = "PA"
+            }
+            zoomToState((showPark.states === "DC" ? "MD" : state))
         } else {
 
         }
@@ -463,7 +467,7 @@ export function generateMap(parks, Lightbox){
 
         let idx;
         document.querySelector(".park-name-box").addEventListener("mouseenter", ()=>{
-            idx = setInterval(() => document.querySelector(".park-name-box").scrollLeft += 3, 30);
+            idx = setInterval(() => document.querySelector(".park-name-box").scrollLeft += 2, 40);
         })
         document.querySelector(".park-name-box").addEventListener("mouseleave", ()=>{
             clearInterval(idx)
@@ -525,7 +529,7 @@ export function generateMap(parks, Lightbox){
 
         // Flickr_URL
         let flickrURL = 
-            `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e19ad1e0c6bf594b6f00d76788a2ad44&format=json&nojsoncallback=1&text=${searchName}&extras=url_o`
+            `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e19ad1e0c6bf594b6f00d76788a2ad44&format=json&nojsoncallback=1&text=${searchName}&extras=url_o&per_page=20`
         
         // Prepares the image list and modal images by removing all children
         removeAllChildNodes("small-images")
@@ -570,7 +574,11 @@ export function generateMap(parks, Lightbox){
                         image.src = `${images[i].url_o}`;
                         image.loading = "lazy"
                         lightbox.appendChild(image)
-                        modal.appendChild(image)
+
+                        let image2 = document.createElement("img");
+                        image2.src = `${images[i].url_o}`;
+                        image2.loading = "lazy"
+                        modal.appendChild(image2)
                     }
                 }
             }).then(()=>{
@@ -578,6 +586,10 @@ export function generateMap(parks, Lightbox){
                 d3.select(".parks-sidebar-search").style('display','none')
                 d3.select(".park-showpage").style('display','block')
             })
+
+        setTimeout(function(){
+            makeDotRed(showParkDot)
+        },1500)
     }
 
     function removeAllChildNodes(className){

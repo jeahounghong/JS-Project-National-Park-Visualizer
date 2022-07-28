@@ -151,13 +151,15 @@ function populateAllParks(){
         event.preventDefault();
         if (event.target.data){
             let parkDot = document.getElementById(event.target.data);
-            parkDot.remove();
-            document.getElementById("parks-dots").appendChild(parkDot);
+            if (parkDot){
+                parkDot.remove();
+                document.getElementById("parks-dots").appendChild(parkDot);
+                parkDot.style.fill = "yellow";
+                let selectedParkRadius = document.querySelector(".location").innerHTML.includes("United States of America") ? 6 : 3;
+                parkDot.setAttribute("r", selectedParkRadius)
+                parkDot.style.zIndex = 10000
+            }
 
-            parkDot.style.fill = "yellow";
-            let selectedParkRadius = document.querySelector(".location").innerHTML.includes("United States of America") ? 6 : 3;
-            parkDot.setAttribute("r", selectedParkRadius)
-            parkDot.style.zIndex = 10000
         }
     })
 
